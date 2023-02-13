@@ -1,7 +1,7 @@
 export default {
     products: [
         {
-            _id: '1',
+            _id: '111111111111111111111111',
             name: 'Bánh chuối',
             image: 'images/270_crop_BANHCHUOI.jpg',
             category: 'Bánh',
@@ -10,7 +10,7 @@ export default {
             numReviews: 10,
         },
         {
-            _id: '2',
+            _id: '222222222222222222222222',
             name: 'Bánh chuối',
             image: 'images/270_crop_CARAMELPHOMAI.jpg',
             category: 'Bánh',

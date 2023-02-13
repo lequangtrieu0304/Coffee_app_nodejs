@@ -9,3 +9,35 @@ export const getCartItems = () => {
         : [];
     return cartItems;
 }
+
+export const clearCart = () => {
+    localStorage.removeItem('cartItems');
+}
+
+export const setShipping = ({
+    name = '',
+    phone = '',
+    address = '',
+    city = '',
+    note = '',
+}) => {
+    localStorage.setItem('shipping', JSON.stringify({name, phone, address, city, note}));
+}   
+
+export const getShipping = () => {
+    const shipping = localStorage.getItem('shipping')
+        ? JSON.parse(localStorage.getItem('shipping'))
+        : {name: '', phone: '', address: '', city: '', note: ''};
+    return shipping;
+}
+
+export const setPayment = (payment) => {
+    localStorage.setItem('payment', JSON.stringify(payment))
+}
+
+export const getPayment = () => {
+    const payment = localStorage.getItem('payment')
+        ? JSON.parse(localStorage.getItem('payment'))
+        : '';
+    return payment;
+}

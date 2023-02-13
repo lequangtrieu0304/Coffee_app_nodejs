@@ -28,18 +28,31 @@ a {
     color: black;
 }
 
+li {
+    list-style-type: none;
+}
+
 button {
     cursor: pointer;
 }
 
-header {
-    grid-area: header;
-    background-color: #f2f2f2;
-    color: black;
-
+#header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
+    background-color: #f2f2f2;
+    padding: 1rem;
+    font-size: 1.3rem;
+}
+
+#header .header-content {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+#header .header-detail > a {
+    margin-right: 5px;
 }
 
 footer {
@@ -54,8 +67,9 @@ footer {
 
 .side-bar {
     flex: 1 1;
-    background-color: #f2f2f2;
+    /* background-color: #f2f2f2; */
     margin-top: 1rem;
+   
 }
 
 .category li{
@@ -67,13 +81,15 @@ footer {
 }
 
 .side-bar li.selected{
-    background-color: #c0c0c0;
-    color: black;
+    font-weight: bold;
+    font-size: 1.4rem;
 }
 
 #main-container{
     display: flex;
     justify-content: space-between;
+
+    margin-bottom: 2rem;
 }
 
 /* .products */
@@ -98,10 +114,9 @@ footer {
 
 .products li {
     flex: 0 1 20rem;
-    margin: 0 5px 1rem;
+    margin: 0 1rem 1rem;
     list-style-type: none;
     background-color: #fff;
-    border: 2px solid #f2f2f2;
 }
 
 .product-img {
@@ -111,23 +126,15 @@ footer {
 .product-detail {
     display: flex;
     justify-content: space-between;
-
-    background-color: #c0c0c0;
     width: 100%;
     padding: 1rem;
+    border-top: 1px solid #000000;
 }
 
 .product-detail .actions button {
-    cursor: pointer;
-    border-radius: 50%;
-    background-color: #FF6634;
-
-    font-size: 1.2rem;
+    background-color: #000000;
     padding: 5px;
-}
-
-.actions button:hover {
-    background-color:beige;
+    color: #ffffff;
 }
 
 /* cart */
@@ -152,7 +159,7 @@ footer {
     justify-content: space-between;
     align-items: center;
 
-    background-color: #f2f2f2;
+    /* background-color: #f2f2f2; */
     border-bottom: 1px solid black;
     padding: 1rem;
 }
@@ -164,7 +171,7 @@ footer {
 
 .cart-action {
     flex: 1 1;
-    background-color: #f2f2f2;
+    /* background-color: #f2f2f2; */
     padding: 1rem;
 }
 
@@ -172,11 +179,146 @@ footer {
     margin-top: 1rem;
 }
 
+.cart-price {
+    font-weight: 600;
+}
+
 .cart-action button {
     width: 100%;
     padding: 1rem 0;
-    background-color: #FF6634;
+    background-color: #000000;
+    color: #ffffff;
     font-size: 1rem;
     border-radius: 5px;
     cursor: pointer;
+}
+
+/* shipping
+ */
+.shipping {
+    margin: 0 auto;
+    margin-top: 5rem;
+    padding: 1rem;
+    width: 18rem;
+    border: 1px solid #c0c0c0;
+}
+
+#form-shipping > div{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+#form-shipping input, button, textarea {
+    border: 1px solid #c0c0c0;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 1rem;
+}
+
+#form-shipping button {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* place-order */
+
+.place-order {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 1rem;
+}
+
+.order-detail {
+    flex: 3 1;
+    padding: 0 1rem;
+}
+
+.order-shipping {
+    padding: 1rem;
+}
+
+.order-shipping li {
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.order-cart-list {
+    margin-top: 1rem;
+}
+
+.order-action {
+    flex: 1 1;
+    padding: 1rem;
+    font-weight: 600;
+    margin: 0 1rem;
+}
+
+.order-action > div {
+    margin-bottom: 1rem;
+}
+
+.action-details li:first-child {
+    margin-bottom: 5px;
+}
+
+.action-details li:last-child {
+    border-top: 1px solid #c0c0c0;
+}
+
+.action-details ul li{
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 5px;
+}
+
+.order-action button {
+    width: 100%;
+    background-color: #000000;
+    font-size: 1rem;
+    color: #ffffff;
+}
+
+.order-method select{
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(16, 16, 16, 0.5);
+}
+
+.overlay.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.overlay > div {
+    padding: 1rem;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #fff;
+    text-align: center;
+    color: black;
+}
+
+.overlay button {
+    width: 100%;
+    margin-top: 1rem;
+    font-size: 1rem;
+    background-color: #000000;
+    color: #ffffff;
 }

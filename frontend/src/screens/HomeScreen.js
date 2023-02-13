@@ -59,7 +59,7 @@ const HomeScreen = {
 
         const products = await response.json();
         return `
-            ${ListCategory.render({selected: 'coffee'})}
+            ${ListCategory.render({selected: 'banh'})}
             <div class="products">
                 <ul>
                     ${products.map(product => `
@@ -74,7 +74,7 @@ const HomeScreen = {
                                 <div class="product-detail">
                                     <div class="details">
                                         <div class="product-name">
-                                            <a href="/#/product/${product._id}">Bánh chuối</a>
+                                            <a href="/#/product/${product._id}"><h4>Bánh chuối</h4></a>
                                         </div>
                                         <div class="product-price">
                                             ${product.price}đ
@@ -82,7 +82,7 @@ const HomeScreen = {
                                     </div>
 
                                     <div class="actions">
-                                        <button type="button" id="${product._id}" class="add-cart"><i class="fa-solid fa-plus"></i></button>
+                                        <button type="button" id="${product._id}" class="add-cart">Thêm vào giỏ</button>
                                     </div>
                                 </div>
                                 
