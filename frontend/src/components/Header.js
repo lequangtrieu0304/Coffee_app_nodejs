@@ -1,5 +1,8 @@
+import { getAdminInfo } from "../localStroge";
+
 const Header = {
     render: () => {
+        const admin = getAdminInfo();
        return `
             <div id="header">
                 <div class="header-content">
@@ -7,7 +10,12 @@ const Header = {
                 </div>
                 <div class="header-detail">
                     <a href="/#/cart"><i class="fa-solid fa-bag-shopping"></i></a>
-                    <a href="/#/dashboard">Admin</a>
+                    ${
+                        admin 
+                            ?`<a href="/#/profile">Admin</a>` 
+                            :`<a href="/#/login">Admin</a>`
+                    }
+                    
                 </div>
             </div>
        `;

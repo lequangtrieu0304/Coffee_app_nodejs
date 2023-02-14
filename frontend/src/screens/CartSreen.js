@@ -81,7 +81,7 @@ const CartScreen = {
                         :
                         ${cartItems.reduce((a, c) => a + c.price * c.qty, 0)}đ
                     </h3>
-                    <button id="checkout-button">Đặt hàng</button>
+                    <button id="checkout-button">TỚI THANH TOÁN</button>
                 </div>
             </div>
         `;

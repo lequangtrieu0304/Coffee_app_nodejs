@@ -9,7 +9,7 @@ const addToCart = (item) => {
         setCartItems(cartItems);
     }
     else {
-        alert('item da ton tai trong gio');
+        document.location.hash = '/cart';
     }
 }
 
@@ -18,7 +18,7 @@ const HomeScreen = {
         const addCartButtons = document.getElementsByClassName('add-cart');
         Array.from(addCartButtons).forEach(addCartButton => {
             addCartButton.addEventListener('click', async () => {
-                const response = await fetch(`http://localhost:3000/api/products/${addCartButton.id}`, {
+                const response = await fetch(`http://localhost:3001/api/products/${addCartButton.id}`, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -47,7 +47,7 @@ const HomeScreen = {
     },
     
     render: async () => {
-        const response = await fetch("http://localhost:3000/api/products", {
+        const response = await fetch("http://localhost:3001/api/products", {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -59,7 +59,7 @@ const HomeScreen = {
 
         const products = await response.json();
         return `
-            ${ListCategory.render({selected: 'banh'})}
+            ${ListCategory.render({selected: 'coffee'})}
             <div class="products">
                 <ul>
                     ${products.map(product => `

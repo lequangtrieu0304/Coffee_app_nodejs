@@ -1,59 +1,16 @@
-import { createOrder } from "../apis/orderAPI";
-import { clearCart, clearPayment, getCartItems, getPayment, getShipping, setPayment } from "../localStroge";
-import { rerender, showMessage } from "../ultis";
+import { getOrderById } from "../apis/orderAPI";
+import { parseRequestUrl } from "../ultis";
 
-const convertToCart = () =>  {
-    const orderItems = getCartItems();
-    if(orderItems.length === 0){
-        document.location.hash = '/cart';
-    }
-    const shipping = getShipping();
-    if(!shipping.name || !shipping.phone || !shipping.address || !shipping.city){
-        document.location.hash = '/shipping';
-    }
-
-    const itemsPrice = orderItems.reduce((a, c) => a + c.price*c.qty, 0);
-    const shipPrice = itemsPrice > 150000 ? 0 : 20000;
-    const totalPrice = itemsPrice + shipPrice;
-
-    return {
-        orderItems,
-        shipping,
-        itemsPrice,
-        shipPrice,
-        totalPrice,
-    }
-}
-
-const PlaceOrderScreen = {
-    after_render: () => {
-        let order = {...convertToCart()};
-        const methodPayment = document.getElementById('shipping-method');
-        methodPayment.addEventListener('change', (e) => {
-            let payment = e.target.value;
-            setPayment(payment);
-            rerender(PlaceOrderScreen);
-        });
-        
-        const payment = getPayment();
-        order = {...convertToCart(), payment};
-        document.getElementById('order-button').addEventListener('click', async () => {
-            const data = await createOrder(order);
-            if(data.error){
-                showMessage(data.error);
-            }
-            else {
-                showMessage(data.message);
-                clearCart();
-                clearPayment();
-            }
-            document.location.hash = `/order/${data.order._id}`;
-        })
-    },
-
-    render: () => {
-        const {orderItems, shipping, itemsPrice, shipPrice, totalPrice} = convertToCart();
-        const payment = getPayment();
+const OrderScreen = {
+    render: async () => {
+        const request = parseRequestUrl();
+        const { shipping, 
+                orderItems, 
+                itemsPrice, 
+                totalPrice, 
+                shipPrice, 
+                createdAt } = await getOrderById(request.id);
+                
         return `
             <div class="place-order">
                 <div class="order-detail">
@@ -64,6 +21,7 @@ const PlaceOrderScreen = {
                                 <li><div>Người nhận:</div> <div>${shipping.name}</div></li>
                                 <li><div>Điện thoại:</div> <div>${shipping.phone}</div></li>
                                 <li><div>Địa chỉ:</div> <div>${shipping.address}, ${shipping.city}</div></li>
+                                <li><div>Ngày đặt:</div> <div>${createdAt.substring(0, 10)}</div></li>
                             </ul>
                         </div>
                     </div>
@@ -106,22 +64,11 @@ const PlaceOrderScreen = {
                             <li><div>Tổng thanh toán:</div> <div>${totalPrice}đ</div></li>
                         </ul>
                     </div>
-                    <div class="order-method">
-                        <select name="shipping-method" id="shipping-method">
-                            ${
-                                ['Phương thức thanh toán', 'Momo', 'Paypal', 'Credit Card', 'Tiền mặt'].map( x => x === payment  
-                                    ? `<option selected value="${payment}">${payment}</option>`
-                                    : `<option value="${x}">${x}</option>`
-                                )
-                            }  
-                        </select>
-                    </div>
-
-                    <button type="button" id="order-button">Đặt hàng</button>
+                    <div><h2>Thank You Very Much</h2></div>
                 </div>
             </div>
         `;
     }
 }
 
-export default PlaceOrderScreen;
+export default OrderScreen;

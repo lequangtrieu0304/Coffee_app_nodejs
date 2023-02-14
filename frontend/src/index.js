@@ -1,7 +1,10 @@
 import Header from "./components/Header.js";
+import AdminScreen from "./screens/AdminScreen.js";
 import CartScreen from "./screens/CartSreen.js";
 import ErrorScreen from "./screens/ErrorScreen.js";
 import HomeScreen from "./screens/HomeScreen.js";
+import LoginScreen from "./screens/LoginScreen.js";
+import OrderScreen from "./screens/OrderScreen.js";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen.js";
 import ShippingScreen from "./screens/ShippingScreen.js";
 import { parseRequestUrl } from "./ultis.js";
@@ -11,6 +14,9 @@ const routes = {
     "/cart": CartScreen,
     "/shipping": ShippingScreen,
     "/orderplace": PlaceOrderScreen,
+    "/order/:id": OrderScreen,
+    "/login": LoginScreen,
+    "/admin": AdminScreen,
 }
 
 const router = async () => {

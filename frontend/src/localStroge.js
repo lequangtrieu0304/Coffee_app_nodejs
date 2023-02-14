@@ -41,3 +41,19 @@ export const getPayment = () => {
         : '';
     return payment;
 }
+
+export const clearPayment = () => {
+    localStorage.removeItem('payment');
+}
+
+export const setAdminInfo = (data) => {
+    localStorage.setItem('admin', JSON.stringify(data))
+}
+
+
+export const getAdminInfo = () => {
+    const info = localStorage.getItem('admin') 
+        ? JSON.parse(localStorage.getItem('admin'))
+        : '';
+    return info;
+}

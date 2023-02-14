@@ -10,10 +10,10 @@ const ListCategory = {
                         <a href="/#/">Trà</a>
                     </li>
                     <li class="${props.selected === 'freeze' ? 'selected' : ''}">
-                        <a href="">Freeze</a>
+                        <a href="/#/">Freeze</a>
                     </li>
                     <li class="${props.selected === 'banh' ? 'selected' : ''}">
-                        <a href="">Bánh</a>
+                        <a href="/#/">Bánh</a>
                     </li>
                 </ul>
             </div>

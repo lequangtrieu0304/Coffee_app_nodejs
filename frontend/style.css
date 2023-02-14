@@ -189,8 +189,14 @@ footer {
     background-color: #000000;
     color: #ffffff;
     font-size: 1rem;
-    border-radius: 5px;
     cursor: pointer;
+}
+
+.cart-name .delete-button {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 5px 1rem;
+    margin-left: 5px;
 }
 
 /* shipping
@@ -211,7 +217,6 @@ footer {
 
 #form-shipping input, button, textarea {
     border: 1px solid #c0c0c0;
-    border-radius: 5px;
     padding: 8px;
     font-size: 1rem;
 }
@@ -240,6 +245,10 @@ footer {
     padding: 1rem;
 }
 
+.order-shipping ul {
+    border-bottom: 1px solid #000000;
+}
+
 .order-shipping li {
     margin-bottom: 5px;
     font-weight: 600;
@@ -265,14 +274,21 @@ footer {
 }
 
 .action-details li:last-child {
-    border-top: 1px solid #c0c0c0;
+    border-top: 1px solid #000000;
+    padding: 5px 0;
 }
 
-.action-details ul li{
+.action-details ul li,
+.order-shipping ul li{
     display: flex;
     justify-content: space-between;
 
     margin-bottom: 5px;
+}
+
+.action-details ul li div:first-child,
+.order-shipping ul li div:first-child {
+    font-weight: 500;
 }
 
 .order-action button {
@@ -321,4 +337,59 @@ footer {
     font-size: 1rem;
     background-color: #000000;
     color: #ffffff;
+}
+
+/* login  */
+
+.login {
+    border: 1px solid #000000;
+    margin: 0 auto;
+    margin-top: 3rem;
+
+    padding: 1rem;
+}
+
+#form-login > div {
+    display: flex;
+    flex-direction: column;
+
+    margin: 10px 0;
+}
+
+#form-login input {
+    padding: 5px;
+    margin-top: 5px;
+    width: 15rem;
+}
+
+#form-login button {
+    width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* dashboard */
+
+.list-item-order li {
+    display: flex;
+    justify-content: space-between;
+}
+
+.orders-admin {
+    flex: 4 1;
+    padding: 1rem;
+}
+
+.order-list {
+    margin-top: 1rem;
+    border-top: 1px solid #000000;
+}
+
+.order-list table {
+    width: 100%;
+    text-align: center;
+}
+
+tbody > tr:nth-child(odd) {
+    background-color: #f0f0f0;
 }
