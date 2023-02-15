@@ -23,6 +23,10 @@ body {
     height: 100%;
 }
 
+i{
+    cursor: pointer;
+}
+
 a {
     text-decoration: none;
     color: black;
@@ -55,6 +59,12 @@ button {
     margin-right: 5px;
 }
 
+.category-header li{
+    display: inline;
+    margin: 0 1rem;
+    font-size: 1.2rem;
+}
+
 footer {
     grid-area: footer;
     background-color: #f2f2f2;
@@ -63,6 +73,11 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.a-selected {
+    font-weight: 600;
+    border-bottom: 1px solid #000000;
 }
 
 .side-bar {
@@ -385,6 +400,10 @@ footer {
     border-top: 1px solid #000000;
 }
 
+.order-list td {
+    padding: 8px;
+}
+
 .order-list table {
     width: 100%;
     text-align: center;
@@ -393,3 +412,77 @@ footer {
 tbody > tr:nth-child(odd) {
     background-color: #f0f0f0;
 }
+
+/* admin-product */
+
+.product-list img {
+    max-width: 5rem;
+}
+
+.product-list button {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.update-product {
+    flex: 4 1;
+}
+
+.update-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#update-form {
+    padding: 1rem;
+    border: 1px solid #000000;
+}
+
+#update-form > div {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+#update-form input {
+    padding: 8px;
+}
+
+#update-form label {
+    font-size: 1rem;
+    margin-bottom: 3px;
+    font-weight: 600;
+}
+
+#update-form button {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.product-table {
+    flex: 4 1;
+    padding: 1rem;
+}
+
+.product-table table {
+    width: 100%;
+    text-align: center;
+}
+
+.product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid #000000;
+}
+
+.product-header button {
+    margin-bottom: 5px;
+    background-color: #000000;
+    color: #ffffff;
+}
+
+
+

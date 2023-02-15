@@ -1,5 +1,6 @@
-import ListCategory from "../components/listCategory.js";
+import { getProductById, getProductByKey } from "../apis/productAPI.js";
 import { getCartItems, setCartItems } from "../localStroge.js";
+import { parseRequestUrl, showMessage } from "../ultis.js";
 
 const addToCart = (item) => {
     let cartItems = getCartItems();
@@ -18,28 +19,20 @@ const HomeScreen = {
         const addCartButtons = document.getElementsByClassName('add-cart');
         Array.from(addCartButtons).forEach(addCartButton => {
             addCartButton.addEventListener('click', async () => {
-                const response = await fetch(`http://localhost:3001/api/products/${addCartButton.id}`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
-                
-                if(!response || !response.ok) {
-                    return `<div>Error getting data</div>`
+                const data = await getProductById(addCartButton.id);
+                if(data.error){
+                    showMessage(data.error)
                 }
-
-                const product = await response.json();
-                if(product){
+                else{
                     addToCart({
-                        product: product._id,
-                        name: product.name,
-                        image: product.image,
-                        price: product.price,
+                        product: data._id,
+                        name: data.name,
+                        image: data.image,
+                        price: data.price,
                         qty: 1,
                     });
-                }
-
-                document.location.hash = '/cart';
+                    document.location.hash = '/cart';
+                }  
             })  
         });
 
@@ -47,19 +40,10 @@ const HomeScreen = {
     },
     
     render: async () => {
-        const response = await fetch("http://localhost:3001/api/products", {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if(!response || !response.ok) {
-            return `<div>Error getting data</div>`
-        }
-
-        const products = await response.json();
+        const request = parseRequestUrl();
+        const {value} = request;
+        const products = await getProductByKey({searchKeyword: value});
         return `
-            ${ListCategory.render({selected: 'coffee'})}
             <div class="products">
                 <ul>
                     ${products.map(product => `

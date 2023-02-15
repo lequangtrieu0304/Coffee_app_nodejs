@@ -17,7 +17,6 @@ const LoginScreen = {
                 showMessage(data.error)
             }
             else {
-                showMessage("Đăng nhập thành công");
                 setAdminInfo(data);
                 document.location.hash = '/admin';
             }
@@ -27,7 +26,7 @@ const LoginScreen = {
     render: () => {
         const admin = getAdminInfo();
         if(admin){
-            document.location.hash = '/profile'
+            document.location.hash = '/admin';
         }
         
         return `

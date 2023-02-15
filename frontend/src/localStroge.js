@@ -57,3 +57,7 @@ export const getAdminInfo = () => {
         : '';
     return info;
 }
+
+export const clearAdminInfo = () => {
+    localStorage.removeItem('admin');
+}

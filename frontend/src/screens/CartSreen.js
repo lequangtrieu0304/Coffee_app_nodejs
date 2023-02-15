@@ -79,7 +79,7 @@ const CartScreen = {
                     <h3>
                         Số lượng(${cartItems.reduce((a, c) => a + c.qty, 0)} items)
                         :
-                        ${cartItems.reduce((a, c) => a + c.price * c.qty, 0)}đ
+                        ${cartItems.reduce((a, c) => a + parseInt(c.price) * c.qty, 0)}đ
                     </h3>
                     <button id="checkout-button">TỚI THANH TOÁN</button>
                 </div>

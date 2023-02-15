@@ -4,10 +4,13 @@ const ListDashboard = {
             <div class="side-bar">
                 <ul class="category">
                     <li class="${props.selected === 'orders' ? 'selected' : ''}">
-                        <a href="/#/">Orders</a>
+                        <a href="/#/admin">Orders</a>
                     </li>
-                    <li class="${props.selected === 'products' ? 'selected' : ''}">
-                        <a href="/#/">Products</a>
+                    <li class="${props.selected === 'product' ? 'selected' : ''}">
+                        <a href="/#/product">Products</a>
+                    </li>
+                    <li class="${props.selected === 'profile' ? 'selected' : ''}">
+                        <a href="/#/profile">Profile</a>
                     </li>
                 </ul>
             </div>

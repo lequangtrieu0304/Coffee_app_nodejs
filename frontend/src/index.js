@@ -6,6 +6,8 @@ import HomeScreen from "./screens/HomeScreen.js";
 import LoginScreen from "./screens/LoginScreen.js";
 import OrderScreen from "./screens/OrderScreen.js";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen.js";
+import ProductEditScreen from "./screens/ProductEditScreen.js";
+import ProductScreen from "./screens/ProductScreen.js";
 import ShippingScreen from "./screens/ShippingScreen.js";
 import { parseRequestUrl } from "./ultis.js";
 
@@ -17,13 +19,15 @@ const routes = {
     "/order/:id": OrderScreen,
     "/login": LoginScreen,
     "/admin": AdminScreen,
+    "/product": ProductScreen,
+    "/product/:id/edit": ProductEditScreen,
 }
 
 const router = async () => {
     const request = parseRequestUrl();
     const parseUrl = (request.resource ? `/${request.resource}` : '/') + 
                         (request.id ? '/:id' : '') + 
-                        (request.verb ? `${request.verb}` : '');
+                        (request.verb ? `/${request.verb}` : '');
 
     const screen = routes[parseUrl] ? routes[parseUrl] : ErrorScreen;
 

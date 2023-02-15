@@ -8,6 +8,8 @@ import path from 'path';
 
 import orderRouter from './routers/orderRouter';
 import adminRouter from './routers/adminRouter';
+import productRouter from './routers/productRouter';
+import uploadImgRouter from './routers/uploadImage';
 
 mongoose.set('strictQuery', true);
 mongoose.connect(config.MONGO_URL)
@@ -26,8 +28,10 @@ app.use(cors());
 
 const PORT = 3001;
 
+app.use('/api/uploads', uploadImgRouter);
 app.use('/api/orders', orderRouter);
 app.use('/api/users', adminRouter);
+app.use('/api/products', productRouter);
 
 app.get('/api/products', (req, res) => {
     res.send(data.products);
@@ -43,6 +47,8 @@ app.get('/api/products/:id', (req, res) => {
         res.send({message: "Not Found"})
     }
 });
+
+app.use('/uploads/ImgProducts', express.static(path.join(__dirname, '../uploads/ImgProducts')));
 
 app.use(express.static(path.join(__dirname, '../frontend')));
 

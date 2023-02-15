@@ -40,7 +40,7 @@ const AdminScreen = {
                                                 </ul>
                                             `).join('')}
                                         </td>
-                                        <td>${order.totalPrice}</td>
+                                        <td>${order.totalPrice}đ</td>
                                         <td>${order.shipping.note}</td>
                                         <td>${order.createdAt.substring(0, 10)}</td>
                                     </tr>
