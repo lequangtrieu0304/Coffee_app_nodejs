@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import data from './data.js';
 import mongoose from 'mongoose';
 import config from './config/database';
 import bodyParser from 'body-parser';
@@ -32,21 +31,6 @@ app.use('/api/uploads', uploadImgRouter);
 app.use('/api/orders', orderRouter);
 app.use('/api/users', adminRouter);
 app.use('/api/products', productRouter);
-
-app.get('/api/products', (req, res) => {
-    res.send(data.products);
-});
-
-app.get('/api/products/:id', (req, res) => {
-    const id = req.params.id;
-    const product = data.products.find(x => x._id === id);
-    if(product){
-        res.send(product);
-    }
-    else {
-        res.send({message: "Not Found"})
-    }
-});
 
 app.use('/uploads/ImgProducts', express.static(path.join(__dirname, '../uploads/ImgProducts')));
 
