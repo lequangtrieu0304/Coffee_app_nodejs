@@ -58,10 +58,10 @@ const HomeScreen = {
                                 <div class="product-detail">
                                     <div class="details">
                                         <div class="product-name">
-                                            <a href="/#/product/${product._id}"><h4>Bánh chuối</h4></a>
+                                            <a href="/#/product/${product._id}"><h4>${product.name}</h4></a>
                                         </div>
                                         <div class="product-price">
-                                            ${product.price}đ
+                                            <div>Giá:</div> <div class="price">${product.price}đ</div>
                                         </div>
                                     </div>
 

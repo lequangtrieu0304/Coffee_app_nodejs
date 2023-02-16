@@ -141,9 +141,22 @@ footer {
 .product-detail {
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
     width: 100%;
     padding: 1rem;
     border-top: 1px solid #000000;
+}
+
+.product-price {
+    display: flex;
+
+    margin-top: 5px;
+}
+
+.product-price .price {
+    color: #5E453A;
+    font-weight: 600;
+    margin-left: 5px;
 }
 
 .product-detail .actions button {
