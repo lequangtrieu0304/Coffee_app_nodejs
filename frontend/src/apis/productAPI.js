@@ -10,7 +10,7 @@ export const getAllProduct = async () => {
                 'Content-Type': 'application/json',
             }
         });
-        if(response.statusText !== 'OK'){
+        if(response.status !== 200){
             throw new Error(response.data.message);
         }
         return response.data;
@@ -31,7 +31,7 @@ export const getProductById = async (id) => {
                 'Content-Type': 'application/json',
             }
         });
-        if(response.statusText !== 'OK'){
+        if(response.status !== 200){
             throw new Error(response.data.message);
         }
         return response.data;
@@ -56,7 +56,7 @@ export const getProductByKey = async ({searchKeyword = ''}) => {
                 'Content-Type': 'application/json',
             }
         });
-        if(response.statusText !== 'OK'){
+        if(response.status !== 200){
             throw new Error(response.data.message);
         }
         return response.data;
@@ -79,7 +79,7 @@ export const createProduct = async () => {
                 Authorization: `Bearer ${token}`,
             }
         })
-        if(response.statusText !== 'Created'){
+        if(response.status !== 200){
             throw new Error(response.data.message)
         }
         return response.data;
@@ -103,7 +103,7 @@ export const updatedProduct = async (data) => {
             },
             data: data,
         })
-        if(response.statusText !== 'OK'){
+        if(response.status !== 200){
             throw new Error(response.data.message)
         }
         return response.data;
@@ -126,7 +126,7 @@ export const deleteProduct = async (id) => {
                 Authorization: `Bearer ${token}`
             }
         })
-        if(response.statusText !== 'OK'){
+        if(response.status !== 200){
             throw new Error(response.data.message);
         }
         return response.data;

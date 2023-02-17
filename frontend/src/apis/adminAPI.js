@@ -11,7 +11,7 @@ export const loginAccount = async (data) => {
             data: data,
         })
         console.log(response);
-        if(response.statusText !== 'OK'){
+        if(response.status !== 200){
             throw new Error(response.data.message);
         }
         return response.data;

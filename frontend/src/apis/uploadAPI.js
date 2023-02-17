@@ -13,7 +13,7 @@ export const uploadImage = async (formData) => {
             },
             data: formData,
         })
-        if(response.statusText !== 'Created'){
+        if(response.status !== 200){
             throw new Error(response.data.message)
         }
         return response.data;

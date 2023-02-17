@@ -9,7 +9,7 @@ export const getAllOrder = async () => {
                 'Content-Type': 'application/json',
             }
         })
-        if(response.statusText !== 'OK'){
+        if(response.status !== 200){
             throw new Error(response.data.message);
         }
         return response.data;
@@ -31,7 +31,7 @@ export const getOrderById = async (id) => {
             }
         });
 
-        if(response.statusText !== 'OK'){
+        if(response.status !== 200){
             throw new Error(response.data.message);
         }
         return response.data;
@@ -53,7 +53,7 @@ export const createOrder = async (order) => {
             },
             data: order
         })
-        if(response.statusText !== 'Created'){
+        if(response.status !== 200){
             throw new Error(response.data.message);
         }
         return response.data;
