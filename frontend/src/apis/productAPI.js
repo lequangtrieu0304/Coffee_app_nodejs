@@ -63,7 +63,7 @@ export const getProductByKey = async ({searchKeyword = ''}) => {
     }
     catch(err){
         return {
-            error: err.response.data.message || err.message
+            error: err.response ? err.response.data.message : err.message
         }
     }
 }
@@ -86,7 +86,7 @@ export const createProduct = async () => {
     }
     catch (err){
         return {
-            error: err.response.data.message || err.message
+            error: err.response ? err.response.data.message : err.message
         }
     }
 }
@@ -110,7 +110,7 @@ export const updatedProduct = async (data) => {
     }
     catch(err){
         return {
-            error: err.response.data.message || err.message
+            error: err.response ? err.response.data.message : err.message
         }
     }
 }

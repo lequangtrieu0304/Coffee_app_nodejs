@@ -10,6 +10,7 @@ export const loginAccount = async (data) => {
             },
             data: data,
         })
+        console.log(response);
         if(response.statusText !== 'OK'){
             throw new Error(response.data.message);
         }
@@ -17,7 +18,7 @@ export const loginAccount = async (data) => {
     }
     catch(err){
         return {
-            error: err.response.data.message || err.message,
+            error: err.response ? err.response.data.message : err.message
         }
     }
 }

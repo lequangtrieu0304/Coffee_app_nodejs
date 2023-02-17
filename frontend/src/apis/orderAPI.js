@@ -16,7 +16,7 @@ export const getAllOrder = async () => {
     }
     catch(err){
         return {
-            error: err.response.data.message || err.message,
+            error: err.response ? err.response.data.message : err.message
         }
     }
 }
@@ -38,7 +38,7 @@ export const getOrderById = async (id) => {
     }
     catch (err){
         return {
-            error: err.response.data.message || err.message,
+            error: err.response ? err.response.data.message : err.message
         }
     }
 }

@@ -20,7 +20,7 @@ export const uploadImage = async (formData) => {
     }
     catch(err){
         return {
-            error: err.message,
+            error: err.response ? err.response.data.message : err.message
         }
     }
 }
