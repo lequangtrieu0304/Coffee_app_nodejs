@@ -38,7 +38,7 @@ const handleLogin = async (req, res) => {
             const result = await brcypt.compare(password, findAdmin.password);
             if(result){
                 const token = accessToken(findAdmin);
-                res.status(200).send({
+                res.send({
                     id: findAdmin._id,
                     username: findAdmin.username,
                     email: findAdmin.email,

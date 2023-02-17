@@ -79,7 +79,8 @@ export const createProduct = async () => {
                 Authorization: `Bearer ${token}`,
             }
         })
-        if(response.status !== 200){
+        console.log(response);
+        if(response.status !== 201){
             throw new Error(response.data.message)
         }
         return response.data;

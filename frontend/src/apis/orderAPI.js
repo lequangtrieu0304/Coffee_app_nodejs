@@ -53,7 +53,7 @@ export const createOrder = async (order) => {
             },
             data: order
         })
-        if(response.status !== 200){
+        if(response.status !== 201){
             throw new Error(response.data.message);
         }
         return response.data;
