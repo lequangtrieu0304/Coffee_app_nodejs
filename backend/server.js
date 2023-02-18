@@ -20,12 +20,11 @@ mongoose.connect(config.MONGO_URL)
     }) 
 
 const app = express();
+const PORT = 5000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-
-const PORT = 5000;
 
 app.use('/api/uploads', uploadImgRouter);
 app.use('/api/orders', orderRouter);
