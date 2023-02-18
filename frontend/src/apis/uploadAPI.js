@@ -5,7 +5,7 @@ export const uploadImage = async (formData) => {
     try {
         const { token } = getAdminInfo();
         const response = await axios({
-            url: `http://localhost:3001/api/uploads/image`,
+            url: `http://localhost:5000/api/uploads/image`,
             method: 'POST',
             headers: {
                 'Content-Type': 'multipart/form-data',

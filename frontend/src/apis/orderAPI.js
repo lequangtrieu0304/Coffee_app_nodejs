@@ -3,7 +3,7 @@ import axios from 'axios';
 export const getAllOrder = async () => {
     try{
         const response = await axios({
-            url: `http://localhost:3001/api/orders/`,
+            url: `http://localhost:5000/api/orders/`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ export const getAllOrder = async () => {
 export const getOrderById = async (id) => {
     try{
         const response = await axios({
-            url: `http://localhost:3001/api/orders/${id}`,
+            url: `http://localhost:5000/api/orders/${id}`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ export const getOrderById = async (id) => {
 export const createOrder = async (order) => {
     try {
         const response = await axios({
-            url: `http://localhost:3001/api/orders/`,
+            url: `http://localhost:5000/api/orders/`,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

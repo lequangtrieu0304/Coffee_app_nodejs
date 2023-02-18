@@ -3,7 +3,7 @@ import axios from "axios";
 export const loginAccount = async (data) => {
     try{
         const response = await axios({
-            url: `http://localhost:3001/api/users/login`,
+            url: `http://localhost:5000/api/users/login`,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

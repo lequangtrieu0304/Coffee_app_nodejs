@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
-const PORT = 3001;
+const PORT = 5000;
 
 app.use('/api/uploads', uploadImgRouter);
 app.use('/api/orders', orderRouter);
