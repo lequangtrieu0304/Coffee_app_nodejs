@@ -1,4 +1,4 @@
-import { getCartItems, setCartItems } from "../localStroge";
+import { getCartItems, getUserInfo, setCartItems } from "../localStroge";
 import { rerender } from "../ultis";
 
 const CartScreen = {
@@ -28,10 +28,17 @@ const CartScreen = {
             })
         });
 
-
-        document.getElementById('checkout-button').addEventListener('click', () => {
-            document.location.hash = '/shipping';
-        })
+        const { username } = getUserInfo();
+        if(username) {
+            document.getElementById('checkout-button').addEventListener('click', () => {
+                document.location.hash = '/orderplace';
+            })
+        }
+        else {
+            document.getElementById('checkout-button').addEventListener('click', () => {
+                document.location.hash = '/shipping';
+            })
+        }
     },
     render: () => {
         const cartItems = getCartItems();

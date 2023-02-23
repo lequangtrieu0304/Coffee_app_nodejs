@@ -1,5 +1,5 @@
-import { loginAccount } from "../apis/adminAPI";
-import { getAdminInfo, setAdminInfo } from "../localStroge";
+import { loginAccount } from "../apis/userAPI";
+import { getUserInfo, setUserInfo } from "../localStroge";
 import { showMessage } from "../ultis";
 
 const LoginScreen = {
@@ -17,16 +17,16 @@ const LoginScreen = {
                 showMessage(data.error)
             }
             else {
-                setAdminInfo(data);
-                document.location.hash = '/admin';
+                setUserInfo(data);
+                document.location.hash = '/';
             }
         })
     },
 
     render: () => {
-        const admin = getAdminInfo();
-        if(admin){
-            document.location.hash = '/admin';
+        const { username }= getUserInfo();
+        if(username){
+            document.location.hash = '/';
         }
         
         return `
@@ -42,6 +42,7 @@ const LoginScreen = {
                         <input type="password" id="password" name="password" placeholder=""/>
                     </div>
                     <button type="submit" id="login-button">Log In</button>
+                    <div>Tạo tài khoản mới?<a href=/#/register><strong>Đăng kí</strong></a></div>
                 </form>
             </div>
         `;

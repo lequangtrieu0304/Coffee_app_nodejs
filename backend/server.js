@@ -6,9 +6,10 @@ import bodyParser from 'body-parser';
 import path from 'path';
 
 import orderRouter from './routers/orderRouter';
-import adminRouter from './routers/adminRouter';
+import userRouter from './routers/userRouter';
 import productRouter from './routers/productRouter';
-import uploadImgRouter from './routers/uploadImage';
+import uploadImgProduct from './routers/uploadImage';
+import uploadImgUser from './routers/uploadUser';
 
 mongoose.set('strictQuery', true);
 mongoose.connect(config.MONGO_URL)
@@ -20,7 +21,7 @@ mongoose.connect(config.MONGO_URL)
     }) 
 
 const app = express();
-const PORT = 5000;
+const PORT = 3500;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -35,12 +36,14 @@ app.use(function(req, res, next) {
     );
     next();
 })
-app.use('/api/uploads', uploadImgRouter);
+app.use('/api/uploads', uploadImgProduct);
+app.use('/api/uploads-user', uploadImgUser);
 app.use('/api/orders', orderRouter);
-app.use('/api/users', adminRouter);
+app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
 
 app.use('/uploads/ImgProducts', express.static(path.join(__dirname, '../uploads/ImgProducts')));
+app.use('/uploads/ImgUsers', express.static(path.join(__dirname, '../uploads/ImgUsers')));
 
 app.use(express.static(path.join(__dirname, '../frontend')));
 

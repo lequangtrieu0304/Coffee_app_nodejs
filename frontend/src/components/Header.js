@@ -1,11 +1,11 @@
-import { getAdminInfo } from "../localStroge";
+import { getUserInfo } from "../localStroge";
 import { parseRequestUrl } from "../ultis";
 
 const Header = {
     after_render: () => {},
 
     render: () => {
-        const admin = getAdminInfo();
+        const {username, isAdmin} = getUserInfo();
         const { value } = parseRequestUrl();
         return `
                 <div id="header">
@@ -29,15 +29,20 @@ const Header = {
                         </ul>
                     </div>
                     <div class="header-detail">
+                        <a href="/#/cart"><i class="fa-solid fa-bag-shopping"></i></a>
                         ${
-                            admin 
+                            username 
                                 ?
-                                `<i class="fa-solid fa-user-secret"></i>
-                                <a href="/#/admin">Admin</a>` 
+                                `<a href="/#/${isAdmin ? 'admin' : 'profile'}">${username}</a>`
                                 :
-                                `<a href="/#/cart"><i class="fa-solid fa-bag-shopping"></i></a>
-                                <a href="/#/login">Admin</a>`
+                                `<a href="/#/login">Đăng nhập</a>`
                         }  
+                        ${
+                            isAdmin 
+                                ? `<i class="fa-solid fa-user-secret"></i>
+                                    <a href="/#/admin">Dashboard</a>` 
+                                : ''
+                        }      
                     </div>
                 </div>
         `;

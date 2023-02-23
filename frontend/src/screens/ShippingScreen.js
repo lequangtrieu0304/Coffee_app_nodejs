@@ -1,4 +1,4 @@
-import { getShipping, setShipping } from "../localStroge";
+import { getShipping, getUserInfo, setShipping } from "../localStroge";
 
 const ShippingScreen = {
     after_render: () => {

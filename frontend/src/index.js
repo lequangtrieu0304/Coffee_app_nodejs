@@ -1,5 +1,5 @@
 import Header from "./components/Header.js";
-import AdminScreen from "./screens/AdminScreen.js";
+import DashBoardScreen from "./screens/DashBoardScreen.js";
 import CartScreen from "./screens/CartSreen.js";
 import ErrorScreen from "./screens/ErrorScreen.js";
 import HomeScreen from "./screens/HomeScreen.js";
@@ -10,6 +10,9 @@ import ProductEditScreen from "./screens/ProductEditScreen.js";
 import ProductScreen from "./screens/ProductScreen.js";
 import ShippingScreen from "./screens/ShippingScreen.js";
 import { parseRequestUrl } from "./ultis.js";
+import RegisterScreen from "./screens/RegisterScreen.js";
+import ProfileScreen from "./screens/ProfileScreen.js";
+import SummaryScreen from "./screens/SummaryScreen.js";
 
 const routes = {
     "/": HomeScreen,
@@ -18,9 +21,12 @@ const routes = {
     "/orderplace": PlaceOrderScreen,
     "/order/:id": OrderScreen,
     "/login": LoginScreen,
-    "/admin": AdminScreen,
+    "/register": RegisterScreen,
+    "/profile": ProfileScreen,
+    "/admin": DashBoardScreen,
     "/product": ProductScreen,
     "/product/:id/edit": ProductEditScreen,
+    "/summary": SummaryScreen,
 }
 
 const router = async () => {

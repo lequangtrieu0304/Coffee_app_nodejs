@@ -5,7 +5,7 @@ const AdminScreen = {
     render: async () => {
         let orders = await getAllOrder();
         orders.reverse();
-        
+
         return `
             ${ListDashboard.render({selected : 'orders'})}
             <div class="orders-admin">
@@ -14,6 +14,7 @@ const AdminScreen = {
                     <table>
                         <thead>
                             <tr>
+                                <th>STT</th>
                                 <th>ID</th>
                                 <th>Người đặt</th>
                                 <th>Số ĐT</th>
@@ -27,12 +28,13 @@ const AdminScreen = {
 
                         <tbody>
                             ${
-                                orders.map(order => `
+                                orders.map((order, index) => `                              
                                     <tr>
+                                        <td>${index + 1}</td>
                                         <td>${order._id}</td>
-                                        <td>${order.shipping.name}</td>
-                                        <td>${order.shipping.phone}</td>
-                                        <td>${order.shipping.address}</td>
+                                        <td>${order.user ? order.user.username : order.shipping.name}</td>
+                                        <td>${order.user ? order.user.phone : order.shipping.phone}</td>
+                                        <td>${order.user ? order.user.address : order.shipping.address}</td>
                                         <td>
                                             ${order.orderItems.map((item, index) => `
                                                 <ul class="list-item-order">
@@ -41,7 +43,7 @@ const AdminScreen = {
                                             `).join('')}
                                         </td>
                                         <td>${order.totalPrice}đ</td>
-                                        <td>${order.shipping.note}</td>
+                                        <td>${order.shipping ? order.shipping.note : ''}</td>
                                         <td>${order.createdAt.substring(0, 10)}</td>
                                     </tr>
                                 `).join('')

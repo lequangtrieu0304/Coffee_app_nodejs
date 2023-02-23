@@ -1,3 +1,4 @@
+import { sellingProducts } from "../apis/orderAPI.js";
 import { getProductById, getProductByKey } from "../apis/productAPI.js";
 import { getCartItems, setCartItems } from "../localStroge.js";
 import { parseRequestUrl, showMessage } from "../ultis.js";
@@ -35,16 +36,48 @@ const HomeScreen = {
                 }  
             })  
         });
-
-
     },
     
     render: async () => {
         const request = parseRequestUrl();
-        const {value} = request;
+        const { value } = request;
         const products = await getProductByKey({searchKeyword: value});
+        const productSelling = await sellingProducts();
+        console.log(productSelling);
         return `
             <div class="products">
+                <div class="selling-products">
+                    <h2>Sản phẩm bán chạy</h2>
+                    <ul>
+                        ${  productSelling.length === 0 ? `<div>Chưa có sản phẩm bán chạy</div>`:
+                            productSelling.map((selling, index) => `
+                                <li>
+                                    <div class="product">
+                                        <div class="product-img">
+                                            <a href="/#/product/${selling.sell[0]._id}">
+                                                <img src="${selling.sell[0].image}" alt="${selling.sell[0].name}" />
+                                            </a>
+                                        </div>
+                                        
+                                        <div class="product-detail">
+                                            <div class="details">
+                                                <div class="product-name">
+                                                    <a href="/#/product/${selling.sell[0]._id}"><h4>${selling.sell[0].name}</h4></a>
+                                                </div>
+                                                <div class="product-price">
+                                                    <div>Giá:</div> <div class="price">${selling.sell[0].price}đ</div>
+                                                </div>
+                                                <div class="qty">
+                                                    <div><span>Đã bán: ${selling.totalQty}</span></div>
+                                                </div>
+                                            </div>                           
+                                        </div>                                       
+                                    </div>
+                                </li>
+                            `).join('')
+                        }
+                    </ul>
+                </div>
                 <ul>
                     ${products.map(product => `
                         <li>

@@ -1,5 +1,5 @@
-import { createOrder } from "../apis/orderAPI";
-import { clearCart, clearPayment, getCartItems, getPayment, getShipping, setPayment } from "../localStroge";
+import { createOrder, createOrderLogin } from "../apis/orderAPI";
+import { clearCart, clearPayment, clearShipping, getCartItems, getPayment, getShipping, getUserInfo, setPayment } from "../localStroge";
 import { rerender, showMessage } from "../ultis";
 
 const convertToCart = () =>  {
@@ -8,10 +8,13 @@ const convertToCart = () =>  {
         document.location.hash = '/cart';
     }
     const shipping = getShipping();
+    const { username } = getUserInfo();
     if(!shipping.name || !shipping.phone || !shipping.address || !shipping.city){
-        document.location.hash = '/shipping';
+        if(!username){
+            document.location.hash = '/shipping';
+        }
     }
-
+    
     const itemsPrice = orderItems.reduce((a, c) => a + c.price*c.qty, 0);
     const shipPrice = itemsPrice > 150000 ? 0 : 20000;
     const totalPrice = itemsPrice + shipPrice;
@@ -37,22 +40,40 @@ const PlaceOrderScreen = {
         
         const payment = getPayment();
         order = {...convertToCart(), payment};
+        const {username} = getUserInfo();
         document.getElementById('order-button').addEventListener('click', async () => {
-            const data = await createOrder(order);
-            if(data.error){
-                showMessage(data.error);
+            if(username){
+                const data = await createOrderLogin(order);
+                console.log(data);
+                if(data.error){
+                    showMessage(data.error);
+                }
+                else {
+                    showMessage(data.message);
+                    clearCart();
+                    clearPayment();
+                }
+                document.location.hash = `/order/${data.order._id}`;
             }
             else {
-                showMessage(data.message);
-                clearCart();
-                clearPayment();
+                const data = await createOrder(order);
+                if(data.error){
+                    showMessage(data.error);
+                }
+                else {
+                    showMessage(data.message);
+                    clearCart();
+                    clearPayment();
+                    clearShipping();
+                }
+                document.location.hash = `/order/${data.order._id}`;
             }
-            document.location.hash = `/order/${data.order._id}`;
         })
     },
 
     render: () => {
         const {orderItems, shipping, itemsPrice, shipPrice, totalPrice} = convertToCart();
+        const { address, username, phone} = getUserInfo();
         const payment = getPayment();
         return `
             <div class="place-order">
@@ -61,9 +82,9 @@ const PlaceOrderScreen = {
                         <h3>Địa chỉ nhận hàng</h3>
                         <div>
                             <ul>
-                                <li><div>Người nhận:</div> <div>${shipping.name}</div></li>
-                                <li><div>Điện thoại:</div> <div>${shipping.phone}</div></li>
-                                <li><div>Địa chỉ:</div> <div>${shipping.address}, ${shipping.city}</div></li>
+                                <li><div>Người nhận:</div> <div>${username ? username : shipping.name}</div></li>
+                                <li><div>Điện thoại:</div> <div>${phone ? phone : shipping.phone}</div></li>
+                                <li><div>Địa chỉ:</div> <div>${address ? address : shipping.address}</div></li>
                             </ul>
                         </div>
                     </div>

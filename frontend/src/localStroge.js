@@ -31,6 +31,10 @@ export const getShipping = () => {
     return shipping;
 }
 
+export const clearShipping = (payment) => {
+    localStorage.removeItem('shipping')
+}
+
 export const setPayment = (payment) => {
     localStorage.setItem('payment', JSON.stringify(payment))
 }
@@ -46,18 +50,28 @@ export const clearPayment = () => {
     localStorage.removeItem('payment');
 }
 
-export const setAdminInfo = (data) => {
-    localStorage.setItem('admin', JSON.stringify(data))
+export const setUserInfo = (data) => {
+    localStorage.setItem('user', JSON.stringify(data))
 }
 
 
-export const getAdminInfo = () => {
-    const info = localStorage.getItem('admin') 
-        ? JSON.parse(localStorage.getItem('admin'))
-        : '';
+export const getUserInfo = () => {
+    const info = localStorage.getItem('user') 
+        ? JSON.parse(localStorage.getItem('user'))
+        : {
+            username: '', 
+            phone: '',
+            birthday: '',
+            email: '',
+            address: '',
+            token: '',
+            image: '',
+            isAdmin: '',
+            sex: '',
+        };
     return info;
 }
 
-export const clearAdminInfo = () => {
-    localStorage.removeItem('admin');
+export const clearUserInfo = () => {
+    localStorage.removeItem('user');
 }
