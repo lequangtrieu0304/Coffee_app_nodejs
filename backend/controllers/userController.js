@@ -132,7 +132,12 @@ const handleUpdate = async (req, res) => {
             new: true,
         })
         const user = await updateUser.save();
+        const token = accessToken(user)
         if(user){
+            res.cookie('accessToken', token, {
+                httpOnly: true,
+                maxAge: 24 * 60 * 1000,
+            })
             res.send({
                 message: 'Đã cập nhật',
                 id: user._id,
@@ -144,7 +149,6 @@ const handleUpdate = async (req, res) => {
                 sex: user.sex,
                 isAdmin: user.isAdmin,
                 image: user.image,
-                token: accessToken(user),
             })
         }
         else {
