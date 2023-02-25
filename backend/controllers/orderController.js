@@ -1,8 +1,9 @@
 import Order from "../models/orderModel";
+import User from "../models/userModel";
 
 const summaryOrder = async (req, res) => {
     try{
-        const dailyOrders = await Order.aggregate([
+        const orderOfDay = await Order.aggregate([
             {   
                 $group: {
                     _id: {$dateToString: {format: '%Y-%m-%d', date: '$createdAt'}},
@@ -12,7 +13,31 @@ const summaryOrder = async (req, res) => {
                 }
             }
         ]);
-        res.send(dailyOrders);
+
+        const users = await User.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    numUsers: { $sum: 1},
+                }
+            }
+        ]);
+
+        const orders = await Order.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    totalSales: { $sum: "$totalPrice"},
+                    numOrders: { $sum: 1 },
+                }
+            }
+        ])
+
+        res.send({
+            orderOfDay, 
+            users,
+            orders: orders.length === 0 ? [{totalSales: 0, numOrders: 0}] : orders,
+        });
     }
     catch (err){
         console.log(err);

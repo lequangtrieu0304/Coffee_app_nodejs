@@ -42,6 +42,7 @@ const HomeScreen = {
         const request = parseRequestUrl();
         const { value } = request;
         const products = await getProductByKey({searchKeyword: value});
+        console.log(products);
         const productSelling = await sellingProducts();
         console.log(productSelling);
         return `
@@ -54,7 +55,7 @@ const HomeScreen = {
                                 <li>
                                     <div class="product">
                                         <div class="product-img">
-                                            <a href="/#/product/${selling.sell[0]._id}">
+                                            <a href="/#/productcontent/${selling.sell[0]._id}">
                                                 <img src="${selling.sell[0].image}" alt="${selling.sell[0].name}" />
                                             </a>
                                         </div>
@@ -62,7 +63,7 @@ const HomeScreen = {
                                         <div class="product-detail">
                                             <div class="details">
                                                 <div class="product-name">
-                                                    <a href="/#/product/${selling.sell[0]._id}"><h4>${selling.sell[0].name}</h4></a>
+                                                    <a href="/#/productcontent/${selling.sell[0]._id}"><h4>${selling.sell[0].name}</h4></a>
                                                 </div>
                                                 <div class="product-price">
                                                     <div>Giá:</div> <div class="price">${selling.sell[0].price}đ</div>
@@ -83,7 +84,7 @@ const HomeScreen = {
                         <li>
                             <div class="product">
                                 <div class="product-img">
-                                    <a href="/#/product/${product._id}">
+                                    <a href="/#/productcontent/${product._id}">
                                         <img src="${product.image}" alt="${product.name}" />
                                     </a>
                                 </div>
@@ -91,7 +92,7 @@ const HomeScreen = {
                                 <div class="product-detail">
                                     <div class="details">
                                         <div class="product-name">
-                                            <a href="/#/product/${product._id}"><h4>${product.name}</h4></a>
+                                            <a href="/#/productcontent/${product._id}"><h4>${product.name}</h4></a>
                                         </div>
                                         <div class="product-price">
                                             <div>Giá:</div> <div class="price">${product.price}đ</div>

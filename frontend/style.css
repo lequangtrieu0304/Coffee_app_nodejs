@@ -455,9 +455,9 @@ footer {
 /* profile */
 
 .profile {
-    width: 60%;
-    margin: 0 auto;
+    flex: 4 1;
     border: 1px solid #000000;
+    margin: 1rem;
 }
 
 #form-profile {
@@ -515,6 +515,53 @@ footer {
 #form-profile .profile-details ._sex > div{
     display: inline; 
 }
+
+.summary {
+    flex: 4 1;
+    padding: 1rem;
+}
+
+.summary-content {
+    width: 70%;
+    margin: 0 auto;
+    padding-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.summary-content > div {
+    border: 2px solid #000000;
+}
+
+.summary-content .h3 {
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+
+    padding: 5px 4rem;
+}
+
+.summary-content .content {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    padding: 2rem;
+}
+
+.daily-order {
+    padding: 1rem;
+    margin: 1rem;
+}
+
+.daily-order .daily-order-content {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dashed #000000;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 1rem;
+}   
 
 /* dashboard */
 

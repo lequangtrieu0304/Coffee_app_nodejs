@@ -1,10 +1,10 @@
 import axios from "axios";
-import { getUserInfo } from "../localStroge";
+import { URL_API} from "../config";
 
 export const getAllProduct = async () => {
     try{
         const response = await axios({
-            url: `http://localhost:3500/api/products/`,
+            url: `${URL_API}/api/products/`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ export const getAllProduct = async () => {
 export const getProductById = async (id) => {
     try{
         const response = await axios({
-            url: `http://localhost:3500/api/products/${id}`,
+            url: `${URL_API}/api/products/${id}`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export const getProductByKey = async ({searchKeyword = ''}) => {
             queryString += `searchKeyword=${searchKeyword}&`
         }
         const response = await axios({
-            url: `http://localhost:3500/api/products${queryString}`,
+            url: `${URL_API}/api/products${queryString}`,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -70,14 +70,13 @@ export const getProductByKey = async ({searchKeyword = ''}) => {
 
 export const createProduct = async () => {
     try{
-        const { token } = getUserInfo();
         const response = await axios({
-            url: `http://localhost:3500/api/products`,
+            url: `${URL_API}/api/products`,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            }
+            },
+            withCredentials: true,
         })
         if(response.status !== 201){
             throw new Error(response.data.message)
@@ -93,14 +92,13 @@ export const createProduct = async () => {
 
 export const updatedProduct = async (data) => {
     try {
-        const { token } = getAdminInfo();
         const response = await axios({
-            url: `http://localhost:3500/api/products/${data._id}`,
+            url: `${URL_API}/api/products/${data._id}`,
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
             },
+            withCredentials: true,
             data: data,
         })
         if(response.status !== 200){
@@ -117,14 +115,13 @@ export const updatedProduct = async (data) => {
 
 export const deleteProduct = async (id) => {
     try{
-        const { token } = getAdminInfo();
         const response = await axios({
-            url: `http://localhost:3500/api/products/${id}`,
+            url: `${URL_API}/api/products/${id}`,
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`
-            }
+            },
+            withCredentials: true,
         })
         if(response.status !== 200){
             throw new Error(response.data.message);

@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import { authentication, isAdmin } from '../middleware/tokenAccess';
+import { authentication, authenticationCookie, isAdmin } from '../middleware/tokenAccess';
 import path from 'path';
 
 const router = express.Router();
@@ -27,7 +27,7 @@ const upload = multer({
     fileFilter: fileFilter,
 })
 
-router.post('/image', authentication, isAdmin, upload.single('image'), (req, res) => {
+router.post('/image', authenticationCookie, isAdmin, upload.single('image'), (req, res) => {
     res.status(201).send({
         image: `${req.file.path}`,
     })

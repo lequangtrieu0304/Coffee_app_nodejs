@@ -13,6 +13,7 @@ import { parseRequestUrl } from "./ultis.js";
 import RegisterScreen from "./screens/RegisterScreen.js";
 import ProfileScreen from "./screens/ProfileScreen.js";
 import SummaryScreen from "./screens/SummaryScreen.js";
+import ProductContentScreen from "./screens/ProductContentScreen.js";
 
 const routes = {
     "/": HomeScreen,
@@ -27,6 +28,7 @@ const routes = {
     "/product": ProductScreen,
     "/product/:id/edit": ProductEditScreen,
     "/summary": SummaryScreen,
+    "/productcontent/:id": ProductContentScreen,
 }
 
 const router = async () => {

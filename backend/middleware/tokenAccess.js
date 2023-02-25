@@ -38,6 +38,32 @@ export const authentication = (req, res, next) => {
     }
 }
 
+export const authenticationCookie = (req, res, next) => {
+    const cookies = req.cookies;
+    if(!cookies?.accessToken){
+        return res.status(400).send({
+            message: "Cookies is require",
+        })
+    }
+    else {
+        const token = cookies.accessToken;
+        jwt.verify(
+            token, config.ACCESS_TOKEN_SECRET,
+            (err, data) => {
+                if(err){
+                    res.status(400).send({
+                        message: "TOKEN INVALID",
+                    })
+                }
+                else {
+                    req.user = data;
+                    next();
+                }
+            }
+        )
+    }
+}
+
 export const isAdmin = (req, res, next) => {
     if(req.user && req.user.isAdmin){
         next();

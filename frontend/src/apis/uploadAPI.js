@@ -1,16 +1,16 @@
 import axios from "axios";
+import { URL_API } from "../config";
 import { getUserInfo } from "../localStroge";
 
 export const uploadImage = async (formData) => {
     try {
-        const { token } = getUserInfo();
         const response = await axios({
-            url: `http://localhost:3500/api/uploads/image`,
+            url: `${URL_API}/api/uploads/image`,
             method: 'POST',
             headers: {
                 'Content-Type': 'multipart/form-data',
-                Authorization: `Bearer ${token}`,
             },
+            withCredentials: true,
             data: formData,
         })
         if(response.status !== 201){
@@ -27,14 +27,13 @@ export const uploadImage = async (formData) => {
 
 export const uploadUser = async (formData) => {
     try {
-        const { token } = getUserInfo();
         const response = await axios({
-            url: `http://localhost:3500/api/uploads-user/image-user`,
+            url: `${URL_API}/api/uploads-user/image-user`,
             method: 'POST',
             headers: {
                 'Content-Type': 'multipart/form-data',
-                Authorization: `Bearer ${token}`,
             },
+            withCredentials: true,
             data: formData,
         })
         if(response.status !== 201){

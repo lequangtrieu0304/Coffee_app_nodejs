@@ -38,6 +38,12 @@ const handleLogin = async (req, res) => {
             const result = await brcypt.compare(password, findUser.password);
             if(result){
                 const token = accessToken(findUser);
+
+                res.cookie('accessToken', token, {
+                    httpOnly: true,
+                    maxAge: 24 * 60 * 60 * 1000
+                });
+
                 res.send({
                     id: findUser._id,
                     username: findUser.username,
@@ -48,7 +54,6 @@ const handleLogin = async (req, res) => {
                     address: findUser.address,
                     image: findUser.image,
                     isAdmin: findUser.isAdmin,
-                    token,
                 });
             }
             else {
@@ -64,6 +69,16 @@ const handleLogin = async (req, res) => {
         }
     }
     catch(err){
+        console.log(err);
+    }
+}
+
+const getCookie = async (req, res) => {
+    try{
+        const cookies = req.cookies;
+        
+    }
+    catch (err){
         console.log(err);
     }
 }
@@ -157,5 +172,6 @@ export default {
     createdAdminAccount,
     handleLogin,
     handleRegister,
-    handleUpdate
+    handleUpdate,
+    getCookie
 }

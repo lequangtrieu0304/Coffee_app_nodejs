@@ -1,5 +1,6 @@
 import { uploadUser } from "../apis/uploadAPI";
 import { updateAccount } from "../apis/userAPI";
+import ListDashboard from "../components/ListDashboard";
 import { clearUserInfo, getUserInfo, setUserInfo } from "../localStroge";
 import { rerender, showMessage } from "../ultis";
 
@@ -47,8 +48,9 @@ const ProfileScreen = {
     },
 
     render: () => {
-        const { username, phone, birthday, image, address, email, sex } = getUserInfo();
+        const { username, phone, birthday, image, address, email, sex, isAdmin } = getUserInfo();
         return `
+        ${isAdmin===true ? ListDashboard.render({selected: 'profile'}): ""}
             <div class="profile">
                 <form id="form-profile">
                     <div class="profile-details">

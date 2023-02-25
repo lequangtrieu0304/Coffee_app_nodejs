@@ -12,6 +12,9 @@ const ListDashboard = {
                     <li class="${props.selected === 'profile' ? 'selected' : ''}">
                         <a href="/#/profile">Profile</a>
                     </li>
+                    <li class="${props.selected === 'summary' ? 'selected' : ''}">
+                        <a href="/#/summary">Summary</a>
+                    </li>
                 </ul>
             </div>
         `
