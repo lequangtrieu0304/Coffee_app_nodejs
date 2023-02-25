@@ -76,7 +76,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \***********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"URL_API\": () => (/* binding */ URL_API)\n/* harmony export */ });\nconst URL_API = document.location.href.startsWith('http://localhost')\r\n    ? 'http://localhost:3500'\r\n    : '';\r\n\r\n\r\n\n\n//# sourceURL=webpack://frontend/./src/config.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"URL_API\": () => (/* binding */ URL_API)\n/* harmony export */ });\nconst URL_API = document.location.href.startsWith('http://localhost')\r\n    ? 'http://localhost:5000'\r\n    : '';\r\n\r\n\r\n\n\n//# sourceURL=webpack://frontend/./src/config.js?");
 
 /***/ }),
 

@@ -22,7 +22,7 @@ mongoose.connect(config.MONGO_URL)
     }) 
 
 const app = express();
-const PORT = 3500;
+const PORT = 5000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -44,8 +44,7 @@ app.use('/api/orders', orderRouter);
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
 
-app.use('/uploads/ImgProducts', express.static(path.join(__dirname, '../uploads/ImgProducts')));
-app.use('/uploads/ImgUsers', express.static(path.join(__dirname, '../uploads/ImgUsers')));
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 app.use(express.static(path.join(__dirname, '../frontend')));
 

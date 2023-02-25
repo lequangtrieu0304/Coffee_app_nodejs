@@ -73,16 +73,6 @@ const handleLogin = async (req, res) => {
     }
 }
 
-const getCookie = async (req, res) => {
-    try{
-        const cookies = req.cookies;
-        
-    }
-    catch (err){
-        console.log(err);
-    }
-}
-
 const handleRegister = async (req, res) => {
     const { username, email, password, phone, birthday } = req.body;
  
@@ -173,5 +163,4 @@ export default {
     handleLogin,
     handleRegister,
     handleUpdate,
-    getCookie
 }
