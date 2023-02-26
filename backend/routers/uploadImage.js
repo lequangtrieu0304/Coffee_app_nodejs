@@ -27,9 +27,9 @@ const upload = multer({
     fileFilter: fileFilter,
 })
 
-router.post('/image', authenticationCookie, isAdmin, upload.single('image'), (req, res) => {
+router.post('/image', authenticationCookie, isAdmin, upload.single('image-file'), (req, res) => {
     res.status(201).send({
-        image: `/${req.file.path}`,
+        image: `/${req.file}`,
     })
 })
 
