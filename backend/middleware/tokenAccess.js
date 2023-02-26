@@ -56,7 +56,6 @@ export const authenticationCookie = (req, res, next) => {
                     })
                 }
                 else {
-                    console.log(data);
                     req.user = data;
                     next();
                 }
