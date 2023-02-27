@@ -73,6 +73,24 @@ const handleLogin = async (req, res) => {
     }
 }
 
+const handleLogout = async (req, res) => {
+    try {
+        const cookies = req.cookies;
+        if(!cookies?.accessToken) {
+            return res.status(400).send({
+                message: "INVALID TOKEN",
+            })
+        }
+        else {
+            res.clearCookie('accessToken', { httpOnly: true });
+            res.sendStatus(200);
+        }
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
 const handleRegister = async (req, res) => {
     const { username, email, password, phone, birthday } = req.body;
  
@@ -167,4 +185,5 @@ export default {
     handleLogin,
     handleRegister,
     handleUpdate,
+    handleLogout
 }

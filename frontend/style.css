@@ -167,6 +167,27 @@ footer {
     color: #ffffff;
 }
 
+.product .product-evaluate {
+    padding: 0 1rem;
+}
+
+/* rating */
+
+.rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rating .rating-number {
+    font-size: 1.2rem;
+}
+
+.rating .rating-text {
+    color: #5E453A;
+    font-size: 1rem;
+}
+
 /* selling-products */
 
 .selling-products {

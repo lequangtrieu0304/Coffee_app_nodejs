@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { URL_API } from '../config';
-import { getUserInfo} from '../localStroge';
 
 export const dailyOrders = async () => {
     try{
@@ -11,8 +10,7 @@ export const dailyOrders = async () => {
                 'Content-Type': 'application/json',
             },
             withCredentials: true,
-        })
-        console.log(response);
+        });
         if(response.status !== 200){
             throw new Error(response.data.message)
         }

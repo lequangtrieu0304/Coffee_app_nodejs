@@ -1,5 +1,5 @@
 import { uploadUser } from "../apis/uploadAPI";
-import { updateAccount } from "../apis/userAPI";
+import { logoutAccount, updateAccount } from "../apis/userAPI";
 import ListDashboard from "../components/ListDashboard";
 import { clearUserInfo, getUserInfo, setUserInfo } from "../localStroge";
 import { rerender, showMessage } from "../ultis";
@@ -41,16 +41,24 @@ const ProfileScreen = {
             }
         })
 
-        document.getElementById('logout').addEventListener('click', () => {
-            clearUserInfo();
-            document.location.hash = '/';
-        })
+        document.getElementById('logout').addEventListener('click', async () => {
+            const data = await logoutAccount();
+            if(data.error) {
+                showMessage(data.error);
+                clearUserInfo();
+                document.location.hash = '/';
+            }
+            else {
+                clearUserInfo();
+                document.location.hash = '/';
+            }
+        });
     },
 
     render: () => {
         const { username, phone, birthday, image, address, email, sex, isAdmin } = getUserInfo();
         return `
-        ${isAdmin===true ? ListDashboard.render({selected: 'profile'}): ""}
+        ${ isAdmin === true ? ListDashboard.render({selected: 'profile'}) : "" }
             <div class="profile">
                 <form id="form-profile">
                     <div class="profile-details">

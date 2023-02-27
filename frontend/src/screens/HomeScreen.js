@@ -1,5 +1,6 @@
 import { sellingProducts } from "../apis/orderAPI.js";
 import { getProductById, getProductByKey } from "../apis/productAPI.js";
+import Rating from "../components/Rating.js";
 import { getCartItems, setCartItems } from "../localStroge.js";
 import { parseRequestUrl, showMessage } from "../ultis.js";
 
@@ -68,6 +69,13 @@ const HomeScreen = {
                                     <div class="actions">
                                         <button type="button" id="${product._id}" class="add-cart">Thêm vào giỏ</button>
                                     </div>
+                                </div>
+
+                                <div class="product-evaluate">
+                                    ${Rating.render({
+                                        value: product.rating,
+                                        text: `${product.numReviews} Đánh giá`,
+                                    })}
                                 </div>
                                 
                             </div>

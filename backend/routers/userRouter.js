@@ -6,6 +6,8 @@ import { authentication, authenticationCookie } from '../middleware/tokenAccess'
 
 router.get('/create-admin', userController.createdAdminAccount);
 
+router.get('/logout', userController.handleLogout);
+
 router.post('/login', userController.handleLogin);
 
 router.post('/register', userController.handleRegister);
