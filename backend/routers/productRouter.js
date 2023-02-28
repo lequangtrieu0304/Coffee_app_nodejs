@@ -12,6 +12,8 @@ router.get('/:id', productController.getProductById);
 
 router.post('/', authenticationCookie, productController.createProduct);
 
+router.post('/:id/review', authenticationCookie, productController.createReview);
+
 router.put('/:id', authenticationCookie, isAdmin, productController.updatedProduct);
 
 router.delete('/:id', authenticationCookie, isAdmin, productController.deleteProduct);

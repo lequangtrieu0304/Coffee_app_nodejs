@@ -134,3 +134,27 @@ export const deleteProduct = async (id) => {
         }
     }
 }
+
+export const createReview = async (id, review) => {
+    try{
+        const response = await axios({
+            url: `${URL_API}/api/products/${id}/review`,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+            data: review,
+        });
+        if(response.status !== 200){
+            throw new Error(response.data.message);
+        }
+
+        return response.data;
+    }
+    catch (err){
+        return {
+            error: err.response ? err.response.data.message : err.message,
+        }
+    }
+}

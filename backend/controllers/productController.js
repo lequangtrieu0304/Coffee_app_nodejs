@@ -62,6 +62,8 @@ const createProduct = async (req, res) => {
             image: "/images/products-1.jpg",
             price: "0.00đ",
             category: "Phân loại",
+            countInStock: 0,
+            sold: 0,
         });
         const createProduct = await product.save();
         if(createProduct){
@@ -82,7 +84,7 @@ const createProduct = async (req, res) => {
 }
 
 const updatedProduct = async (req, res) => {
-    const { name, description, image, price, category } = req.body;
+    const { name, description, image, price, category, countInStock, sold } = req.body;
     try {
         const id = req.params.id;
         const product = await Product.findById(id);
@@ -92,6 +94,8 @@ const updatedProduct = async (req, res) => {
             product.image = image || product.image
             product.price = price || product.price
             product.category = category || product.category
+            product.countInStock = countInStock || product.countInStock
+            product.sold = sold || product.sold
 
             const updatedProduct = await product.save();
             if(updatedProduct){
@@ -146,11 +150,45 @@ const deleteProduct = async (req, res) => {
     }
 }
 
+const createReview = async (req, res) => {
+    const id = req.params.id;
+    try{
+        const product = await Product.findById(id);
+        if(product){
+            const review = {
+                user: req.user._id,
+                name: req.user.username,
+                rating: req.body.rating,
+                comment: req.body.comment,
+            }
+            product.reviews.push(review);
+            product.numReviews = product.reviews.length;
+            product.rating = product.reviews.reduce((a, c) => a + c.rating, 0) / product.reviews.length;
+
+            const updateProduct = await product.save();
+            if(updateProduct){
+                res.status(200).send({
+                    data: updateProduct.reviews[updateProduct.reviews.length - 1],
+                })
+            }
+            else {
+                res.status(400).send({
+                    message: "INVALID",
+                })
+            }
+        }
+    }
+    catch (err){
+        console.log(err);
+    }
+}
+
 export default {
     getAllProduct,
     createProduct,
     updatedProduct,
     getProductById,
     deleteProduct,
-    getProductByKey
+    getProductByKey,
+    createReview
 }

@@ -15,6 +15,7 @@ const ProductEditScreen = {
                 price: document.getElementById('price').value,
                 category: document.getElementById('category').value,
                 image: document.getElementById('image').value,
+                countInStock: document.getElementById('countInStock').value,
             }
             const data = await updatedProduct(update);
             if(data.error){
@@ -66,6 +67,10 @@ const ProductEditScreen = {
                             <div>
                                 <label for="category">Phân loại</label>
                                 <input type="text" id="category" name="category" value="${product.category}"/>
+                            </div>
+                            <div>
+                                <label for="countInStock">Trong Kho</label>
+                                <input type="text" id="countInStock" name="countInStock" value="${product.countInStock}"/>
                             </div>
                             <div>
                                 <label for="image">Ảnh</label>

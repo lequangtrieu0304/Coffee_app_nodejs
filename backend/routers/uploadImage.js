@@ -29,7 +29,7 @@ const upload = multer({
 
 router.post('/image', authenticationCookie, isAdmin, upload.single('image'), (req, res) => {
     res.status(201).send({
-        image: `/${req.file.path}`,
+        image: `${req.file.path}`,
     })
 })
 

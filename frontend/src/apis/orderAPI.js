@@ -44,6 +44,27 @@ export const sellingProducts = async () => {
     }
 }
 
+export const getProductWithQty = async (id) => {
+    try{
+        const response = await axios({
+            url: `${URL_API}/api/orders/productWithQty/${id}`,
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        if(response.status !== 200){
+            throw new Error(response.data.message)
+        }
+        return response.data;
+    }
+    catch (err){
+        return {
+            error: err.response ? err.response.data.message : err.message
+        }
+    }
+}
+
 export const getAllOrder = async () => {
     try{
         const response = await axios({

@@ -50,24 +50,28 @@ const ProductScreen = {
                     <table>
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>STT</th>
                                 <th>NAME</th>
                                 <th>ẢNH</th>
                                 <th>GIÁ TRỊ</th>
                                 <th>CATEGORY</th>
+                                <th>KHO</th>
+                                <th>ĐÃ BÁN</th>
                                 <th>RATING</th>
                                 <th>ACTIONS</th>
                             </tr>
                         </thead>
                         <tbody>
                             ${
-                                products.map(product => `
+                                products.map((product, index) => `
                                     <tr>
-                                        <td>${product._id}</td>
-                                        <td>${product.name}</td>
+                                        <td>${index + 1}</td>
+                                        <td><a href="/#/productcontent/${product._id}">${product.name}</a></td>
                                         <td><img src="${product.image}" alt="${product.name}"/></td>
                                         <td>${product.price}</td>
                                         <td>${product.category}</td>
+                                        <td>${product.countInStock}</td>
+                                        <td>${product.sold}</td>
                                         <td>${product.rating}</td>
                                         <td>
                                             <button type="button" id="${product._id}" class="edit-button">Sửa</button>

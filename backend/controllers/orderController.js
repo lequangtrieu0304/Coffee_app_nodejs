@@ -1,5 +1,7 @@
 import Order from "../models/orderModel";
 import User from "../models/userModel";
+import{ ObjectId } from "mongodb";
+import Product from "../models/productModel";
 
 const summaryOrder = async (req, res) => {
     try{
@@ -116,27 +118,34 @@ const getOrderById = async (req, res) => {
 const createOrderLogin = async (req, res) => {
     const {orderItems, shipPrice, itemsPrice, totalPrice, payment} = req.body;
     try{
-        const newOrder = {
+        const newOrder = new Order({
             orderItems,
             user: req.user.id,
             shipPrice,
             itemsPrice,
             totalPrice,
             payment,
-        }
+        })
 
-        const order = await Order.create(newOrder);
-        if(order){
-            res.status(201).send({
-                message: "Đặt hàng thành công",
-                order: order,
-            })
-        }
-        else {
-            res.status(400).send({
-                message: "Đặt hàng thất bại",
-            })
-        }
+        const createOrder = await newOrder.save();
+        orderItems.forEach((item) => {
+            Product.updateOne(
+                { _id: item.product },
+                {$inc: {
+                    countInStock: -item.qty,
+                    sold: item.qty
+                }},
+                (err, data) => {
+                    if(err){
+                        res.status(400).send(err);
+                    }
+                }
+            )   
+        })
+        res.status(201).send({
+            message: "Đặt hàng thành công",
+            order: createOrder,
+        });
     }
     catch(err){
         console.log(err);
@@ -146,27 +155,34 @@ const createOrderLogin = async (req, res) => {
 const createOrder = async (req, res) => {
     const {orderItems, shipping, shipPrice, itemsPrice, totalPrice, payment} = req.body;
     try{
-        const newOrder = {
+        const newOrder = new Order({
             orderItems,
             shipping,
             shipPrice,
             itemsPrice,
             totalPrice,
             payment,
-        }
+        })
 
-        const order = await Order.create(newOrder);
-        if(order){
-            res.status(201).send({
-                message: "Đặt hàng thành công",
-                order: order,
-            })
-        }
-        else {
-            res.status(400).send({
-                message: "Đặt hàng thất bại",
-            })
-        }
+        const createOrder = await newOrder.save();
+        orderItems.forEach(item => {
+            Product.updateOne(
+                { _id: item.product},
+                {$inc: {
+                    countInStock: -item.qty,
+                    sold: item.qty,
+                }},
+                (err, data) => {
+                    if(err){
+                        res.status(400).send(err)
+                    }
+                }
+            )
+        })
+        res.status(201).send({
+            message: "Đặt hàng thành công",
+            order: createOrder,
+        })
     }
     catch(err){
         console.log(err);
@@ -179,5 +195,5 @@ export default {
     getAllOrder,
     createOrderLogin,
     summaryOrder,
-    sellingProducts
+    sellingProducts,
 }

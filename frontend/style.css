@@ -183,9 +183,15 @@ footer {
     font-size: 1.2rem;
 }
 
+.rating-number,
+.rating-text {
+    padding: 0 1rem;
+}
+
 .rating .rating-text {
     color: #5E453A;
     font-size: 1rem;
+    border-left: 2px solid #5E453A;
 }
 
 /* selling-products */
@@ -684,6 +690,89 @@ tbody > tr:nth-child(odd) {
     background-color: #000000;
     color: #ffffff;
 }
+
+/* product-content */
+
+.review-cmt-product {
+    width: 100%;
+}
+
+.product-content,
+.product-comment {
+    width: 80%;
+    margin: 0 auto;
+    background-color: #f2f2f2;
+
+    display: flex;
+    margin-top: 1rem;
+}
+
+.product-review-qty .product-quantity{
+    border-left: 2px solid #5E453A;
+    padding: 0 1rem;
+}
+
+.product-review-qty {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-content-details {
+    padding: 1rem;
+}
+
+.product-content-details > div {
+    margin-top: 1rem;
+}
+
+.in-stock {
+    color: rgb(17, 206, 17);
+    font-weight: 600;
+}
+
+.out-of-stock {
+    color: red;
+    font-weight: 600;
+}
+
+#review-form {
+    padding: 1rem;
+}
+
+#review-form select {
+    padding: 5px;
+}
+
+#review-form > div {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+#review-form button {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.list-comment {
+    flex: 2 1;
+    padding: 1rem;
+}
+.review-actions {
+    flex: 1 1;
+}
+
+.render-comment {
+    margin-top: 1rem;
+}
+
+.render-comment > div {
+    margin-top: 5px;
+}
+
+
+
 
 
 

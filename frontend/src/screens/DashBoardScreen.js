@@ -31,7 +31,7 @@ const AdminScreen = {
                                 orders.map((order, index) => `                              
                                     <tr>
                                         <td>${index + 1}</td>
-                                        <td>${order._id}</td>
+                                        <td><a href="/#/order/${order._id}">${order._id}</a></td>
                                         <td>${order.user ? order.user.username : order.shipping.name}</td>
                                         <td>${order.user ? order.user.phone : order.shipping.phone}</td>
                                         <td>${order.user ? order.user.address : order.shipping.address}</td>
