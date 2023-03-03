@@ -765,10 +765,12 @@ tbody > tr:nth-child(odd) {
 
 .render-comment {
     margin-top: 1rem;
+    padding: 0 0 5px;
+    border-bottom: 1px dashed #5E453A;
 }
 
 .render-comment > div {
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 

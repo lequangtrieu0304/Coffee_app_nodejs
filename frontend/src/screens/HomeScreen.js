@@ -31,6 +31,7 @@ const HomeScreen = {
                         name: data.name,
                         image: data.image,
                         price: data.price,
+                        countInStock: data.countInStock,
                         qty: 1,
                     });
                     document.location.hash = '/cart';

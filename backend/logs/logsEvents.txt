@@ -1,0 +1,28 @@
+::1	03/03/2023 - 13:32:44	GET	/api/orders/selling-products	OK 
+::1	03/03/2023 - 13:32:44	GET	/favicon.ico	Not Modified 
+::1	03/03/2023 - 13:32:44	GET	/api/products?searchKeyword=coffee&	Not Modified 
+::1	03/03/2023-13:33:15	GET	/favicon.ico	Not Modified 
+::1	03/03/2023-13:33:19	POST	/api/users/login	OK 
+::ffff:127.0.0.1	03/03/2023-13:33:19	GET	/favicon.ico	Not Modified 
+::1	03/03/2023-13:33:19	GET	/api/orders/selling-products	OK 
+::1	03/03/2023-13:33:19	GET	/api/products?	Not Modified 
+::1	03/03/2023-13:34:22	GET	/favicon.ico	Not Modified 
+::1	03/03/2023-13:34:22	GET	/api/orders/	Not Modified 
+::1	03/03/2023-13:36:53	GET	/favicon.ico	Not Modified 
+::1	03/03/2023-13:36:53	GET	/api/orders/selling-products	OK 
+::1	03/03/2023-13:36:53	GET	/api/products?searchKeyword=coffee&	Not Modified 
+::1	03/03/2023-13:36:53	GET	/uploads/product/1677513093022.jpg	Not Modified 
+::1	03/03/2023-13:36:53	GET	/uploads/product/1677513117429.jpg	Not Modified 
+::1	03/03/2023-13:36:53	GET	/uploads/product/1677513141084.jpg	Not Modified 
+::1	03/03/2023-13:36:53	GET	/uploads/product/1677513130198.jpg	Not Modified 
+::1	03/03/2023-13:36:53	GET	/uploads/product/1677513152199.jpg	Not Modified 
+::1	03/03/2023-13:36:53	GET	/uploads/product/1677513160597.jpg	Not Modified 
+::1	03/03/2023-13:36:53	GET	/uploads/product/1677513259680.jpg	Not Modified 
+::1	03/03/2023-13:36:53	GET	/uploads/product/1677513251163.jpg	Not Modified 
+::1	03/03/2023-13:37:01	GET	/api/products/63eda74fa5aa8f7f1f2c2a77	Not Modified 
+::1	03/03/2023-13:37:01	GET	/favicon.ico	Not Modified 
+::1	03/03/2023-13:37:29	GET	/favicon.ico	Not Modified 
+::1	03/03/2023-13:37:41	GET	/api/products/63eda74fa5aa8f7f1f2c2a77	Not Modified 
+::1	03/03/2023-13:37:41	GET	/favicon.ico	Not Modified 
+::1	03/03/2023-13:38:10	POST	/api/products/63eda74fa5aa8f7f1f2c2a77/review	OK 
+::1	03/03/2023-13:38:10	GET	/api/products/63eda74fa5aa8f7f1f2c2a77	OK 

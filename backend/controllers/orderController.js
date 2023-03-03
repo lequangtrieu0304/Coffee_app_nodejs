@@ -130,8 +130,11 @@ const createOrderLogin = async (req, res) => {
         const createOrder = await newOrder.save();
         orderItems.forEach((item) => {
             Product.updateOne(
-                { _id: item.product },
-                {$inc: {
+                { 
+                    _id: item.product 
+                },
+                {
+                    $inc: {
                     countInStock: -item.qty,
                     sold: item.qty
                 }},
@@ -167,8 +170,11 @@ const createOrder = async (req, res) => {
         const createOrder = await newOrder.save();
         orderItems.forEach(item => {
             Product.updateOne(
-                { _id: item.product},
-                {$inc: {
+                { 
+                    _id: item.product
+                },
+                {
+                    $inc: {
                     countInStock: -item.qty,
                     sold: item.qty,
                 }},
@@ -197,3 +203,49 @@ export default {
     summaryOrder,
     sellingProducts,
 }
+
+// doanh số theo tháng cho từng sản phẩm
+// db.orders.aggregate([
+//     {
+//         $unwind: "$orderItems"
+//     }, 
+//     {
+//         $lookup: {
+//             from: "products", 
+//             localField: "orderItems.product", 
+//             foreignField: "_id", 
+//             as: "product"
+//         }
+//     }, 
+//     {
+//         $project: {
+//             year: {$year: "$createdAt"}, 
+//             month: {$month: "$createdAt"}, 
+//             total: {$multiply: [{$toInt: "$orderItems.qty"}, {$toInt: "$orderItems.price"}]}, 
+//             totalQty: {$sum: {$toInt: "$orderItems.qty"}}, 
+//             name: "$orderItems.name"
+//         }
+//     }, 
+//     {
+//         $group: {
+//             _id: {year: "$year", month: "$month", name: "$name"}, 
+//             total: {$sum: "$total"},
+//             totalQty: {$sum: "$totalQty"}
+//         }
+//     },
+//     {
+//         $group: {
+//             _id: {
+//                 year: "$_id.year", 
+//                 month: "$_id.month"
+//             }, 
+//             products: {
+//                 $push: {
+//                     name: "$_id.name", 
+//                     total: "$total", 
+//                     totalQty: "$totalQty"
+//                 }
+//             }
+//         }
+//     }
+// ])

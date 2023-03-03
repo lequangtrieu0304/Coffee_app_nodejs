@@ -16,7 +16,7 @@ const ProductContentScreen = {
                 showMessage(data.error)
             }
             else {
-                showMessage('Cảm ơn góp ý của bạn');
+                showMessage('Cảm ơn đánh giá của bạn');
                 rerender(ProductContentScreen);
             }
         })
@@ -59,9 +59,9 @@ const ProductContentScreen = {
                 <div class="product-comment">
                     <div class="list-comment">
                         ${ product.reviews.length === 0 ? `<div>Chưa có đánh giá</div>` : '' }
-                            ${product.reviews.map(review => `
+                            ${product.reviews.map((review, index) => `
                                 <div class="render-comment">
-                                    <div><strong>${review.name}</strong>: ${review.comment}</div>
+                                    <div><strong>${ index + 1 }.${review.name}</strong>: ${review.comment}</div>
                                     <div>
                                         ${Rating.render({
                                             value: review.rating,

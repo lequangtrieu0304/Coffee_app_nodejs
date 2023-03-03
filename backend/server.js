@@ -5,6 +5,7 @@ import config from './config/database';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import { logger } from './middleware/logger';
 
 import orderRouter from './routers/orderRouter';
 import userRouter from './routers/userRouter';
@@ -37,7 +38,10 @@ app.use(function(req, res, next) {
     "GET,HEAD,OPTIONS,POST,PUT,DELETE"
     );
     next();
-})
+});
+
+app.use(logger);
+
 app.use('/api/uploads', uploadImgProduct);
 app.use('/api/uploads-user', uploadImgUser);
 app.use('/api/orders', orderRouter);
