@@ -25,7 +25,7 @@ export const authentication = (req, res, next) => {
             token, config.ACCESS_TOKEN_SECRET,
             (err, data) => {
                 if(err){
-                    res.status(400).send({
+                    return res.status(400).send({
                         message: "Token invalid",
                     })
                 }
@@ -40,10 +40,10 @@ export const authentication = (req, res, next) => {
 
 export const authenticationCookie = (req, res, next) => {
     const cookies = req.cookies;
-    if(!cookies?.accessToken){
-        return res.status(400).send({
-            message: "Cookies is require",
-        })
+    if (!cookies || !cookies.accessToken) {
+        return res.status(400).json({
+            message: "INVALID TOKEN",
+        });
     }
     else {
         const token = cookies.accessToken;
@@ -51,7 +51,7 @@ export const authenticationCookie = (req, res, next) => {
             token, config.ACCESS_TOKEN_SECRET,
             (err, data) => {
                 if(err){
-                    res.status(400).send({
+                    return res.status(400).json({
                         message: "TOKEN INVALID",
                     })
                 }
@@ -66,11 +66,9 @@ export const authenticationCookie = (req, res, next) => {
 
 export const isAdmin = (req, res, next) => {
     if(req.user && req.user.isAdmin){
-        next();
+        return next();
     }
-    else {
-        res.status(400).send({
-            message: "Không đủ quyền"
-        })
-    }
+    return res.status(400).json({
+        message: "Không đủ quyền"
+    })
 }

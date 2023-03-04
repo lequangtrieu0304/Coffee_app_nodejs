@@ -44,7 +44,6 @@ const PlaceOrderScreen = {
         document.getElementById('order-button').addEventListener('click', async () => {
             if(username){
                 const data = await createOrderLogin(order);
-                console.log(data);
                 if(data.error){
                     showMessage(data.error);
                 }

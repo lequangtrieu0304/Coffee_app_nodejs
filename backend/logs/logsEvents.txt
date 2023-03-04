@@ -1,28 +1,82 @@
-::1	03/03/2023 - 13:32:44	GET	/api/orders/selling-products	OK 
-::1	03/03/2023 - 13:32:44	GET	/favicon.ico	Not Modified 
-::1	03/03/2023 - 13:32:44	GET	/api/products?searchKeyword=coffee&	Not Modified 
-::1	03/03/2023-13:33:15	GET	/favicon.ico	Not Modified 
-::1	03/03/2023-13:33:19	POST	/api/users/login	OK 
-::ffff:127.0.0.1	03/03/2023-13:33:19	GET	/favicon.ico	Not Modified 
-::1	03/03/2023-13:33:19	GET	/api/orders/selling-products	OK 
-::1	03/03/2023-13:33:19	GET	/api/products?	Not Modified 
-::1	03/03/2023-13:34:22	GET	/favicon.ico	Not Modified 
-::1	03/03/2023-13:34:22	GET	/api/orders/	Not Modified 
-::1	03/03/2023-13:36:53	GET	/favicon.ico	Not Modified 
-::1	03/03/2023-13:36:53	GET	/api/orders/selling-products	OK 
-::1	03/03/2023-13:36:53	GET	/api/products?searchKeyword=coffee&	Not Modified 
-::1	03/03/2023-13:36:53	GET	/uploads/product/1677513093022.jpg	Not Modified 
-::1	03/03/2023-13:36:53	GET	/uploads/product/1677513117429.jpg	Not Modified 
-::1	03/03/2023-13:36:53	GET	/uploads/product/1677513141084.jpg	Not Modified 
-::1	03/03/2023-13:36:53	GET	/uploads/product/1677513130198.jpg	Not Modified 
-::1	03/03/2023-13:36:53	GET	/uploads/product/1677513152199.jpg	Not Modified 
-::1	03/03/2023-13:36:53	GET	/uploads/product/1677513160597.jpg	Not Modified 
-::1	03/03/2023-13:36:53	GET	/uploads/product/1677513259680.jpg	Not Modified 
-::1	03/03/2023-13:36:53	GET	/uploads/product/1677513251163.jpg	Not Modified 
-::1	03/03/2023-13:37:01	GET	/api/products/63eda74fa5aa8f7f1f2c2a77	Not Modified 
-::1	03/03/2023-13:37:01	GET	/favicon.ico	Not Modified 
-::1	03/03/2023-13:37:29	GET	/favicon.ico	Not Modified 
-::1	03/03/2023-13:37:41	GET	/api/products/63eda74fa5aa8f7f1f2c2a77	Not Modified 
-::1	03/03/2023-13:37:41	GET	/favicon.ico	Not Modified 
-::1	03/03/2023-13:38:10	POST	/api/products/63eda74fa5aa8f7f1f2c2a77/review	OK 
-::1	03/03/2023-13:38:10	GET	/api/products/63eda74fa5aa8f7f1f2c2a77	OK 
+::1	04/03/2023-12:40:58	GET	/api/orders/	OK	200 
+::1	04/03/2023-12:40:58	GET	/favicon.ico	Not Modified	304 
+::1	04/03/2023-12:46:08	GET	/favicon.ico	Not Modified	304 
+::1	04/03/2023-12:46:50	POST	/api/uploads-user/image-user	Created	201 
+::1	04/03/2023-12:46:51	PUT	/api/users/update/63f1bbff1e0a835af90d9308	OK	200 
+::1	04/03/2023-12:46:51	GET	/uploads/user/1677908810340.jpg	OK	200 
+::1	04/03/2023-12:47:11	GET	/	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/style.css	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/dist/main.js	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/api/orders/selling-products	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/api/products?	OK	200 
+::1	04/03/2023-12:47:11	GET	/uploads/product/1677512989568.jpg	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/uploads/product/1677513051154.jpg	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/uploads/product/1677513070349.jpg	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/uploads/product/1677513078378.jpg	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/uploads/product/1677513093022.jpg	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/uploads/product/1677513117429.jpg	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/uploads/product/1677513130198.jpg	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/uploads/product/1677513141084.jpg	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/uploads/product/1677513152199.jpg	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/uploads/product/1677513160597.jpg	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/uploads/product/1677513187992.jpg	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/uploads/product/1677513195989.jpg	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/uploads/product/1677513205609.jpg	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/uploads/product/1677513211618.jpg	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/uploads/product/1677513226517.jpg	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/uploads/product/1677513238574.jpg	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/uploads/product/1677513251163.jpg	Not Modified	304 
+::1	04/03/2023-12:47:11	GET	/uploads/product/1677513259680.jpg	Not Modified	304 
+::1	04/03/2023-12:47:12	GET	/favicon.ico	Not Modified	304 
+::1	04/03/2023-12:47:13	GET	/api/orders/	OK	200 
+::1	04/03/2023-12:47:13	GET	/favicon.ico	Not Modified	304 
+::1	04/03/2023-12:47:15	GET	/uploads/user/1677908810340.jpg	Not Modified	304 
+::1	04/03/2023-12:47:15	GET	/favicon.ico	Not Modified	304 
+::1	04/03/2023-12:47:18	POST	/api/uploads-user/image-user	Created	201 
+::1	04/03/2023-12:47:19	PUT	/api/users/update/63f1bbff1e0a835af90d9308	OK	200 
+::1	04/03/2023-12:47:19	GET	/uploads/user/1677908838401.jpg	OK	200 
+::1	04/03/2023-12:48:15	POST	/api/uploads-user/image-user	Created	201 
+::1	04/03/2023-12:48:16	PUT	/api/users/update/63f1bbff1e0a835af90d9308	OK	200 
+::1	04/03/2023-12:48:16	GET	/uploads/user/1677908895621.jpg	OK	200 
+::1	04/03/2023-12:48:55	GET	/	Not Modified	304 
+::1	04/03/2023-12:48:55	GET	/style.css	Not Modified	304 
+::1	04/03/2023-12:48:55	GET	/dist/main.js	Not Modified	304 
+::1	04/03/2023-12:48:55	GET	/uploads/user/1677908895621.jpg	OK	200 
+::1	04/03/2023-12:48:55	GET	/favicon.ico	Not Modified	304 
+::1	04/03/2023-12:49:48	POST	/api/uploads-user/image-user	Created	201 
+::1	04/03/2023-12:49:49	PUT	/api/users/update/63f1bbff1e0a835af90d9308	OK	200 
+::1	04/03/2023-12:49:49	GET	/uploads/user/1677908988768.jpg	OK	200 
+::1	04/03/2023-13:12:08	GET	/	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/style.css	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/dist/main.js	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/api/orders/selling-products	OK	200 
+::1	04/03/2023-13:12:08	GET	/api/products?	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/uploads/product/1677513070349.jpg	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/uploads/product/1677512989568.jpg	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/uploads/product/1677513051154.jpg	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/uploads/product/1677513078378.jpg	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/uploads/product/1677513093022.jpg	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/uploads/product/1677513117429.jpg	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/uploads/product/1677513130198.jpg	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/uploads/product/1677513141084.jpg	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/uploads/product/1677513152199.jpg	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/uploads/product/1677513160597.jpg	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/uploads/product/1677513187992.jpg	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/uploads/product/1677513195989.jpg	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/uploads/product/1677513205609.jpg	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/uploads/product/1677513211618.jpg	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/uploads/product/1677513226517.jpg	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/uploads/product/1677513238574.jpg	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/uploads/product/1677513251163.jpg	Not Modified	304 
+::1	04/03/2023-13:12:08	GET	/uploads/product/1677513259680.jpg	Not Modified	304 
+::1	04/03/2023-13:12:09	GET	/favicon.ico	Not Modified	304 
+::1	04/03/2023-13:12:11	GET	/api/orders/	OK	200 
+::1	04/03/2023-13:12:11	GET	/favicon.ico	Not Modified	304 
+::1	04/03/2023-13:12:12	GET	/uploads/user/1677908988768.jpg	Not Modified	304 
+::1	04/03/2023-13:12:12	GET	/favicon.ico	Not Modified	304 
+::1	04/03/2023-13:12:15	POST	/api/uploads-user/image-user	Created	201 
+::1	04/03/2023-13:12:17	PUT	/api/users/update/63f1bbff1e0a835af90d9308	OK	200 
+::1	04/03/2023-13:12:17	GET	/uploads/user/1677910335699.jpg	OK	200 
+::1	04/03/2023-13:13:07	POST	/api/uploads-user/image-user	Created	201 
+::1	04/03/2023-13:13:08	PUT	/api/users/update/63f1bbff1e0a835af90d9308	OK	200 
+::1	04/03/2023-13:13:08	GET	/uploads/user/1677910387789.png	OK	200 

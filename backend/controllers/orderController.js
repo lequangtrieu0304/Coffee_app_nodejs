@@ -1,6 +1,5 @@
 import Order from "../models/orderModel";
 import User from "../models/userModel";
-import{ ObjectId } from "mongodb";
 import Product from "../models/productModel";
 
 const summaryOrder = async (req, res) => {
@@ -35,7 +34,7 @@ const summaryOrder = async (req, res) => {
             }
         ])
 
-        res.send({
+        res.status(200).json({
             orderOfDay, 
             users,
             orders: orders.length === 0 ? [{totalSales: 0, numOrders: 0}] : orders,
@@ -79,7 +78,7 @@ const sellingProducts = async (req, res) => {
                 $limit: 5
             }
         ]);
-        res.send(sellingProducts);
+        return res.json(sellingProducts);
     }
     catch (err){
         console.log(err);
@@ -90,10 +89,14 @@ const sellingProducts = async (req, res) => {
 const getAllOrder = async (req, res) => {
     try{
         const orders = await Order.find({}).populate('user');
-        res.status(200).send(orders);
+        return res.status(200).json(orders);
     }
     catch(err){
         console.log(err);
+        return res.status(500).json({
+            message: "Đã xảy ra lỗi khi lấy thông tin đơn hàng",
+            error: err.message,
+        })
     }
 }
 
@@ -102,16 +105,18 @@ const getOrderById = async (req, res) => {
     try{
         const order = await Order.findById(id).populate('user', '-_id -image -password -sex -isAdmin -birthday');
         if(order){
-            res.status(200).send(order);
+            return res.status(200).json(order);
         }
-        else {
-            res.status(400).send({
-                message: "Get Error",
-            })
-        }
+        return res.status(400).json({
+            message: "Get Error",
+        })
     }
     catch(err) {
         console.log(err);
+        return res.status(500).json({
+            message: "Đã xảy ra lỗi khi lấy thông tin đơn hàng",
+            error: err.message,
+        })
     }
 }
 
@@ -128,8 +133,8 @@ const createOrderLogin = async (req, res) => {
         })
 
         const createOrder = await newOrder.save();
-        orderItems.forEach((item) => {
-            Product.updateOne(
+        const updateOperations = orderItems.forEach((item) => {
+            return Product.updateOne(
                 { 
                     _id: item.product 
                 },
@@ -140,12 +145,13 @@ const createOrderLogin = async (req, res) => {
                 }},
                 (err, data) => {
                     if(err){
-                        res.status(400).send(err);
+                        res.status(400).json(err);
                     }
                 }
             )   
-        })
-        res.status(201).send({
+        });
+        await Promise.all(updateOperations);
+        return res.status(201).json({
             message: "Đặt hàng thành công",
             order: createOrder,
         });
@@ -168,7 +174,7 @@ const createOrder = async (req, res) => {
         })
 
         const createOrder = await newOrder.save();
-        orderItems.forEach(item => {
+        const updateOperations = orderItems.forEach(item => {
             Product.updateOne(
                 { 
                     _id: item.product
@@ -180,12 +186,13 @@ const createOrder = async (req, res) => {
                 }},
                 (err, data) => {
                     if(err){
-                        res.status(400).send(err)
+                        res.status(400).json(err)
                     }
                 }
             )
-        })
-        res.status(201).send({
+        });
+        await Promise.all(updateOperations);
+        return res.status(201).json({
             message: "Đặt hàng thành công",
             order: createOrder,
         })

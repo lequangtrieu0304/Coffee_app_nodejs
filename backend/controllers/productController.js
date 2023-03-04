@@ -3,7 +3,7 @@ import Product from '../models/productModel';
 const getAllProduct = async (req, res) => {
     try {
         const products = await Product.find({});
-        res.status(200).send(products);
+        return res.status(200).json(products);
     }
     catch (err){
         console.log(err);
@@ -15,13 +15,11 @@ const getProductById = async (req, res) => {
     try{
         const product = await Product.findById(id);
         if(product){
-            res.status(200).send(product);
+            return res.status(200).json(product);
         }
-        else {
-            res.status(400).send({
-                message: "INVALID",
-            })
-        }
+        return res.status(400).json({
+            message: "INVALID",
+        })
     }
     catch(err){
         console.log(err);
@@ -29,31 +27,19 @@ const getProductById = async (req, res) => {
 }
 
 const getProductByKey = async (req, res) => {
-    try{
-        const queryKeyword = req.query.searchKeyword
-            ? {
-                category: {
-                    $regex: req.query.searchKeyword,
-                    $options: 'i',
-                }
-            }
-            : {}
-        const products = await Product.find({...queryKeyword})
-        if(products){
-            res.status(200).send(products)
-        }
-        else {
-            res.status(400).send({
-                message: "INVALID",
-            })
-        }
-          
-    }
-    catch (err){
+    try {
+        const { searchKeyword } = req.query;
+        const queryKeyword = searchKeyword
+            ? { category: { $regex: searchKeyword, $options: 'i' } }
+            : {};
+        const products = await Product.find({ ...queryKeyword }) ?? [];
+        return res.status(200).json(products || []);
+    } 
+    catch (err) {
         console.log(err);
     }
-}
-
+};
+  
 const createProduct = async (req, res) => {
     try{
         const product = new Product({
@@ -67,16 +53,14 @@ const createProduct = async (req, res) => {
         });
         const createProduct = await product.save();
         if(createProduct){
-            res.status(201).send({
+            return res.status(201).json({
                 message: "Tạo thành công",
                 product: createProduct,
             })
         }
-        else {
-            res.status(400).send({
-                message: "Tạo thất bại",
-            })
-        }
+        return res.status(400).json({
+            message: "Tạo thất bại",
+        })
     }
     catch (err){
         console.log(err);
@@ -89,66 +73,62 @@ const updatedProduct = async (req, res) => {
         const id = req.params.id;
         const product = await Product.findById(id);
         if(product){
-            product.name = name || product.name
-            product.description = description || product.description
-            product.image = image || product.image
-            product.price = price || product.price
-            product.category = category || product.category
-            product.countInStock = countInStock || product.countInStock
-            product.sold = sold || product.sold
+            product.name = name ?? product.name
+            product.description = description ?? product.description
+            product.image = image ?? product.image
+            product.price = price ?? product.price
+            product.category = category ?? product.category
+            product.countInStock = countInStock ?? product.countInStock
+            product.sold = sold ?? product.sold
 
-            const updatedProduct = await product.save();
-            if(updatedProduct){
-                res.status(200).send({
+            const updatedResult = await Product.updateOne({_id: product._id}, product);
+            if(updatedResult.acknowledged){
+                return res.status(200).json({
                     message: "Đã cập nhật",
-                    data: updatedProduct,
+                    data: product,
                 })
             }
-            else {
-                res.status(400).send({
-                    message: "Cập nhật thất bại",
-                })
-            }
-        }
-        else {
-            res.status(400).send({
-                message: "Không tìm thấy sản phẩm",
+            return res.status(400).json({
+                message: "Cập nhật thất bại",
             })
         }
+        return res.status(400).json({
+            message: "Không tìm thấy sản phẩm",
+        })
     }
     catch (err){
         console.log(err);
+        return res.status(500).json({ message: "Lỗi khi cập nhật sản phẩm" });
     }
 }
 
 const deleteProduct = async (req, res) => {
     const id = req.params.id;
-    try{
+    try {
         const product = await Product.findById(id);
-        if(product){
-            const result = await product.remove();
-            if(result){
-                res.status(200).send({
-                    message: "Đã xóa",
-                    data: result,
-                })
-            }
-            else {
-                res.status(400).send({
-                    message: "Xóa thất bại",
-                })
-            }
+        if (!product) {
+            return res.status(400).json({
+                message: "Không tìm thấy sản phẩm",
+            });
         }
-        else {
-            res.status(400).send({
-                message: "INVALID",
-            })
+        const result = await product.remove();
+        if (result) {
+            return res.status(200).json({
+                message: "Đã xóa",
+                data: result,
+            });
         }
-    }
-    catch(err){
-        console.log(err);
+        return res.status(400).json({
+            message: "Xóa thất bại",
+        });
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({
+                message: "Lỗi hệ thống",
+        });
     }
 }
+  
 
 const createReview = async (req, res) => {
     const id = req.params.id;
@@ -165,17 +145,15 @@ const createReview = async (req, res) => {
             product.numReviews = product.reviews.length;
             product.rating = product.reviews.reduce((a, c) => a + c.rating, 0) / product.reviews.length;
 
-            const updateProduct = await product.save();
-            if(updateProduct){
-                res.status(200).send({
-                    data: updateProduct.reviews[updateProduct.reviews.length - 1],
+            const updateResult = await Product.updateOne({_id: product._id }, product);
+            if(updateResult.acknowledged){
+                return res.status(200).json({
+                    data: product.reviews[product.reviews.length - 1],
                 })
             }
-            else {
-                res.status(400).send({
-                    message: "INVALID",
-                })
-            }
+            return res.status(400).json({
+                message: "INVALID",
+            })
         }
     }
     catch (err){

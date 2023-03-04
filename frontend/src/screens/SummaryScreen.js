@@ -4,6 +4,7 @@ import ListDashboard from "../components/ListDashboard";
 const SummaryScreen = {
     render: async () => {
         const { orderOfDay, orders, users} = await dailyOrders();
+        console.log({ orderOfDay, orders, users});
         return `
             ${ListDashboard.render({selected: 'summary'})}
             <div class="summary">
