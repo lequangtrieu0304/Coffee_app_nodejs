@@ -1,11 +1,12 @@
-import User from "../models/userModel";
+import User from "../models/userModel.js";
 import bcrypt from 'bcrypt';
+import CustomError from "../Errors/index.js";
 
-import { accessToken } from "../middleware/tokenAccess";
+import { accessToken } from "../middleware/tokenAccess.js";
 
 const createdAdminAccount = async (req, res) => {
     try{
-        const hashpwd = await brcypt.hash('anhtrieu', 10);
+        const hashpwd = await bcrypt.hash('anhtrieu', 10);
         const admin = {
             username: 'quangtrieu',
             email: 'quangtrieu01@gmail.com',
@@ -25,14 +26,13 @@ const createdAdminAccount = async (req, res) => {
     }
 }
 
-const handleLogin = async (req, res) => {
+const handleLogin = async (req, res, next) => {
     const { email, password } = req.body;
-    if(!email || !password) {
-        return res.status(400).json({
-            message: "Bạn cần điền đủ các trường",
-        })
-    }
     try {
+        if(!email || !password) {
+            throw new CustomError.BadRequestError('Bạn cần điển đủ các trường!');
+        }
+        debugger
         const findUser = await User.findOne({email});
         if(findUser){
             const result = await bcrypt.compare(password, findUser.password);
@@ -55,96 +55,69 @@ const handleLogin = async (req, res) => {
                     isAdmin: findUser.isAdmin,
                 });
             }
-            return res.status(400).json({
-                message: "Mật khẩu không đúng",
-            })
+            throw new CustomError.NotFoundError("Mật khẩu không đúng!");
         }
-        return res.status(400).json({
-            message: "Email không đúng",
-        })
+        throw new CustomError.NotFoundError("Email không đúng!");
     }
-    catch(err){
-        console.log(err);
+    catch(error){
+        next(error);
     }
 }
 
-const handleLogout = async (req, res) => {
+const handleLogout = async (req, res, next) => {
     try {
         const cookies = req.cookies;
         if (!cookies || !cookies.accessToken) {
-            return res.status(400).json({
-                message: "INVALID TOKEN",
-            });
+            throw new CustomError.BadRequestError("INVALID TOKEN");
         } else {
             res.clearCookie('accessToken', { httpOnly: true })
                 .status(200)
                 .end();
         }
-    } catch (err) {
-        console.log(err);
+    } catch (error) {
+        next(error);
     }
 };
 
 
-const handleRegister = async (req, res) => {
+const handleRegister = async (req, res, next) => {
     const { username, email, password, phone, birthday } = req.body;
         try {
             if (!username || !email || !password) {
-                return res.status(400).json({
-                    message: 'Bạn cần điền đủ các trường',
-                });
+                throw new CustomError.BadRequestError("Bạn cần điền đủ các trường");
             }
             const [checkName, checkEmail] = await Promise.all([
                 User.findOne({ username }),
                 User.findOne({ email }),
             ]);
             if (checkName) {
-                return res.status(400).json({
-                    message: 'Tên đã được sử dụng',
-                });
+                throw new CustomError.BadRequestError("Tên đã được sử dụng");
             }
             if (checkEmail) {
-                return res.status(400).json({
-                    message: 'Email đã được sử dụng',
-                });
+                throw new CustomError.BadRequestError("Email đã được sử dụng");
             }
             const hashpwd = await bcrypt.hash(password, 10);
-            const newUser = new User({
-                username,
-                email,
-                password: hashpwd,
-                phone,
-                birthday,
-                image: 'images/270_crop_BANHCHUOI.jpg',
-                sex: 'diff',
-                address: '',
-            });
-            const createUser = await newUser.save();
+            const newUser 
+                = new User({
+                    username, email, password: hashpwd, phone, birthday, image: 'images/270_crop_BANHCHUOI.jpg',sex: 'diff',address: '',
+                });
+            const createUser = await newUser.save(); // lưu DB
             if (createUser) {
                 return res.json({
                     message: 'Đăng kí thành công',
                     data: createUser,
                 });
             }
-            return res.status(400).json({
-                message: 'Đăng kí thất bại',
-            });
-    } catch (err) {
-        console.log(err);
-        return res.status(500).json({
-            message: 'Đã có lỗi xảy ra',
-    });
-}}
+            throw new CustomError.BadRequestError("Đăng kí thất bại");
+        } catch (error) {
+            next(error);
+    }
+}
 
-const handleUpdate = async (req, res) => {
+const handleUpdate = async (req, res, next) => {
     const update = req.body;
     try {
-        const user = await User.
-            findOneAndUpdate({
-                _id: req.params.id}, 
-                update, 
-                { new: true }
-            );
+        const user = await User.findOneAndUpdate({_id: req.params.id}, update, { new: true });
         if(user){
             const token = accessToken(user)
             res.cookie('accessToken', token, {
@@ -164,12 +137,10 @@ const handleUpdate = async (req, res) => {
                 image: user.image,
             })
         }
-        return res.status(400).json({
-            message: "Cập nhật thất bại"
-        })
+        throw new CustomError.BadRequestError("Cập nhật thất bại");
     }
-    catch (err){
-        console.log(err);
+    catch (error){
+        next(error);
     }
 }
 

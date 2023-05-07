@@ -1,8 +1,8 @@
 import express from 'express';
 const router = express.Router();
 
-import productController from '../controllers/productController';
-import { authentication, authenticationCookie, isAdmin } from '../middleware/tokenAccess';
+import productController from '../controllers/productController.js';
+import { authentication, authenticationCookie, isAdmin } from '../middleware/tokenAccess.js';
 
 // router.get('/', productController.getAllProduct);
 

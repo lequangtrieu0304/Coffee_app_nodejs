@@ -1,17 +1,17 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import config from './config/database';
+import config from './config/database.js';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import path from 'path';
-import { logger } from './middleware/logger';
+import { logger } from './middleware/logger.js';
 
-import orderRouter from './routers/orderRouter';
-import userRouter from './routers/userRouter';
-import productRouter from './routers/productRouter';
-import uploadImgProduct from './routers/uploadImage';
-import uploadImgUser from './routers/uploadUser';
+import orderRouter from './routers/orderRouter.js';
+import userRouter from './routers/userRouter.js';
+import productRouter from './routers/productRouter.js';
+import uploadImgProduct from './routers/uploadImage.js';
+import uploadImgUser from './routers/uploadUser.js';
 
 mongoose.set('strictQuery', true);
 mongoose.connect(config.MONGO_URL)
@@ -47,6 +47,13 @@ app.use('/api/uploads-user', uploadImgUser);
 app.use('/api/orders', orderRouter);
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
+
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Internal Server Error';
+
+    res.status(statusCode).json({ message });
+});
 
 app.use('/uploads', express.static(path.join(__dirname, './../uploads')));
 

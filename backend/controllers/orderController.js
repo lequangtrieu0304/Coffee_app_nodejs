@@ -1,8 +1,9 @@
-import Order from "../models/orderModel";
-import User from "../models/userModel";
-import Product from "../models/productModel";
+import Order from "../models/orderModel.js";
+import User from "../models/userModel.js";
+import Product from "../models/productModel.js";
+import CustomError from '../Errors/index.js';
 
-const summaryOrder = async (req, res) => {
+const summaryOrder = async (req, res, next) => {
     try{
         const orderOfDay = await Order.aggregate([
             {   
@@ -40,12 +41,12 @@ const summaryOrder = async (req, res) => {
             orders: orders.length === 0 ? [{totalSales: 0, numOrders: 0}] : orders,
         });
     }
-    catch (err){
-        console.log(err);
+    catch (error){
+        next(error)
     }
 }
 
-const sellingProducts = async (req, res) => {
+const sellingProducts = async (req, res, next) => {
     try {
         const sellingProducts = await Order.aggregate([
             {
@@ -80,63 +81,49 @@ const sellingProducts = async (req, res) => {
         ]);
         return res.json(sellingProducts);
     }
-    catch (err){
-        console.log(err);
+    catch (error){
+        next(error)
     }
 }
 
 
-const getAllOrder = async (req, res) => {
+const getAllOrder = async (req, res, next) => {
     try{
         const orders = await Order.find({}).populate('user');
         return res.status(200).json(orders);
     }
-    catch(err){
-        console.log(err);
-        return res.status(500).json({
-            message: "Đã xảy ra lỗi khi lấy thông tin đơn hàng",
-            error: err.message,
-        })
+    catch(error){
+        next(error)
     }
 }
 
-const getOrderById = async (req, res) => {
+const getOrderById = async (req, res, next) => {
     const id = req.params.id;
     try{
         const order = await Order.findById(id).populate('user', '-_id -image -password -sex -isAdmin -birthday');
         if(order){
             return res.status(200).json(order);
         }
-        return res.status(400).json({
-            message: "Get Error",
-        })
+        throw new CustomError.NotFoundError("Không tìm thấy sản phẩm");
     }
-    catch(err) {
-        console.log(err);
-        return res.status(500).json({
-            message: "Đã xảy ra lỗi khi lấy thông tin đơn hàng",
-            error: err.message,
-        })
+    catch(error) {
+        next(error)
     }
 }
 
-const createOrderLogin = async (req, res) => {
+const createOrderLogin = async (req, res, next) => {
     const {orderItems, shipPrice, itemsPrice, totalPrice, payment} = req.body;
     try{
-        const newOrder = new Order({
-            orderItems,
-            user: req.user.id,
-            shipPrice,
-            itemsPrice,
-            totalPrice,
-            payment,
-        })
-
+        const newOrder 
+            = new Order({ orderItems, user: req.user.id, shipPrice, itemsPrice, totalPrice, payment });
         const createOrder = await newOrder.save();
-        const updateOperations = orderItems.forEach((item) => {
-            return Product.updateOne(
+        orderItems.forEach((item) => {
+            // if(countInStock < item.qty){
+            //     throw new CustomError.BadRequestError("Sản phẩm không đủ!");
+            // }
+            Product.updateOne(
                 { 
-                    _id: item.product 
+                    _id: item.product,
                 },
                 {
                     $inc: {
@@ -145,60 +132,52 @@ const createOrderLogin = async (req, res) => {
                 }},
                 (err, data) => {
                     if(err){
-                        res.status(400).json(err);
+                        throw new CustomError.BadRequestError("INVALID");
                     }
                 }
-            )   
+            )  
         });
-        await Promise.all(updateOperations);
         return res.status(201).json({
             message: "Đặt hàng thành công",
             order: createOrder,
         });
     }
-    catch(err){
-        console.log(err);
+    catch(error){
+        next(error)
     }
 }
 
-const createOrder = async (req, res) => {
+const createOrder = async (req, res, next) => {
     const {orderItems, shipping, shipPrice, itemsPrice, totalPrice, payment} = req.body;
     try{
-        const newOrder = new Order({
-            orderItems,
-            shipping,
-            shipPrice,
-            itemsPrice,
-            totalPrice,
-            payment,
-        })
+        const newOrder 
+            = new Order({ orderItems, shipping, shipPrice, itemsPrice, totalPrice, payment});
 
         const createOrder = await newOrder.save();
-        const updateOperations = orderItems.forEach(item => {
-            Product.updateOne(
-                { 
-                    _id: item.product
-                },
-                {
-                    $inc: {
-                    countInStock: -item.qty,
-                    sold: item.qty,
-                }},
-                (err, data) => {
-                    if(err){
-                        res.status(400).json(err)
+        orderItems.forEach(item => {
+                Product.updateOne(
+                    { 
+                        _id: item.product
+                    },
+                    {
+                        $inc: {
+                        countInStock: -item.qty,
+                        sold: item.qty,
+                    }},
+                    (err, data) => {
+                        if(err){
+                            throw new CustomError.BadRequestError("INVALID");
+                        }
                     }
-                }
-            )
+                )
         });
-        await Promise.all(updateOperations);
         return res.status(201).json({
             message: "Đặt hàng thành công",
             order: createOrder,
         })
     }
-    catch(err){
-        console.log(err);
+    catch(error){
+        next(error)
     }
 }
 

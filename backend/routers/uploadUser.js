@@ -1,7 +1,8 @@
 import express from 'express';
 import multer from 'multer';
-import { authentication, authenticationCookie, isAdmin } from '../middleware/tokenAccess';
+import { authentication, authenticationCookie, isAdmin } from '../middleware/tokenAccess.js';
 import path from 'path';
+import CustomError from '../Errors/index.js';
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ const storage = multer.diskStorage({
         cb(null, path.join(IMAGE_UPLOAD_DIR));
     },
     filename(req, file, cb){
-        cb(null, `${Date.now()}.png`);
+        cb(null, `${Date.now()}.jpg`);
     }
 })
 
@@ -37,7 +38,7 @@ const upload = multer({
 router.post('/image-user', authenticationCookie, upload.single('image'), (req, res, next) => {
     try {
         if (!req.file) {
-            throw new Error("IMAGE_UPLOAD_FAILED");
+            throw new CustomError.BadRequestError("IMAGE_UPLOAD_FAILED");
         }
         res.status(201).send({
             image: `${req.file.path}`,

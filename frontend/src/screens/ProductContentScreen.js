@@ -49,7 +49,7 @@ const ProductContentScreen = {
                         <div><strong>${product.name}</strong></div>
                         <div>Giá bán: <strong>${product.price}</strong>đ</div>
                         ${
-                            product.countInStock === 0
+                            product.countInStock <= 0
                                 ? `<div class="out-of-stock">Hết hàng</div>`
                                 : `<div class="in-stock">Còn hàng</div>`
                         }

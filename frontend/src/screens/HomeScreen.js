@@ -26,15 +26,20 @@ const HomeScreen = {
                     showMessage(data.error)
                 }
                 else{
-                    addToCart({
-                        product: data._id,
-                        name: data.name,
-                        image: data.image,
-                        price: data.price,
-                        countInStock: data.countInStock,
-                        qty: 1,
-                    });
-                    document.location.hash = '/cart';
+                    if(data.countInStock > 0){
+                        addToCart({
+                            product: data._id,
+                            name: data.name,
+                            image: data.image,
+                            price: data.price,
+                            countInStock: data.countInStock,
+                            qty: 1,
+                        });
+                        document.location.hash = '/cart';
+                    }
+                    else {
+                        showMessage("Sản phẩm hết hàng");
+                    }
                 }  
             })  
         });

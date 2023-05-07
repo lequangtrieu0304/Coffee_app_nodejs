@@ -1,32 +1,32 @@
-import Product from '../models/productModel';
+import Product from '../models/productModel.js';
+import CustomError from '../Errors/index.js';
 
-const getAllProduct = async (req, res) => {
+const getAllProduct = async (req, res, next) => {
     try {
         const products = await Product.find({});
         return res.status(200).json(products);
     }
-    catch (err){
-        console.log(err);
+    catch (error){
+        next(error)
     }
 }
 
-const getProductById = async (req, res) => {
+const getProductById = async (req, res, next) => {
     const id = req.params.id;
     try{
         const product = await Product.findById(id);
+        debugger
         if(product){
             return res.status(200).json(product);
         }
-        return res.status(400).json({
-            message: "INVALID",
-        })
+        throw new CustomError.NotFoundError("Không tìm thấy sản phẩm");
     }
-    catch(err){
-        console.log(err);
+    catch(error){
+        next(error);
     }
 }
 
-const getProductByKey = async (req, res) => {
+const getProductByKey = async (req, res, next) => {
     try {
         const { searchKeyword } = req.query;
         const queryKeyword = searchKeyword
@@ -35,22 +35,23 @@ const getProductByKey = async (req, res) => {
         const products = await Product.find({ ...queryKeyword }) ?? [];
         return res.status(200).json(products || []);
     } 
-    catch (err) {
-        console.log(err);
+    catch (error) {
+        next(error)
     }
 };
   
-const createProduct = async (req, res) => {
+const createProduct = async (req, res, next) => {
     try{
-        const product = new Product({
-            name: "Tạo sản phẩm",
-            description: "Mô tả",
-            image: "/images/products-1.jpg",
-            price: "0.00đ",
-            category: "Phân loại",
-            countInStock: 0,
-            sold: 0,
-        });
+        const product 
+            = new Product({
+                name: "Tạo sản phẩm",
+                description: "Mô tả",
+                image: "/images/products-1.jpg",
+                price: "0.00đ",
+                category: "Phân loại",
+                countInStock: 0,
+                sold: 0,
+            });
         const createProduct = await product.save();
         if(createProduct){
             return res.status(201).json({
@@ -58,16 +59,14 @@ const createProduct = async (req, res) => {
                 product: createProduct,
             })
         }
-        return res.status(400).json({
-            message: "Tạo thất bại",
-        })
+        throw new CustomError.BadRequestError("Tạo sản phẩm thất bại");
     }
-    catch (err){
-        console.log(err);
+    catch (error){
+        next(error)
     }
 }
 
-const updatedProduct = async (req, res) => {
+const updatedProduct = async (req, res, next) => {
     const { name, description, image, price, category, countInStock, sold } = req.body;
     try {
         const id = req.params.id;
@@ -83,33 +82,28 @@ const updatedProduct = async (req, res) => {
 
             const updatedResult = await Product.updateOne({_id: product._id}, product);
             if(updatedResult.acknowledged){
-                return res.status(200).json({
-                    message: "Đã cập nhật",
-                    data: product,
-                })
+                return res
+                    .status(200)
+                    .json({
+                        message: "Đã cập nhật",
+                        data: product,
+                    })
+                }
+                throw new CustomError.BadRequestError("Cập nhật thất bại");
             }
-            return res.status(400).json({
-                message: "Cập nhật thất bại",
-            })
+            throw new CustomError.NotFoundError("Không tìm thất sản phẩm");
         }
-        return res.status(400).json({
-            message: "Không tìm thấy sản phẩm",
-        })
-    }
-    catch (err){
-        console.log(err);
-        return res.status(500).json({ message: "Lỗi khi cập nhật sản phẩm" });
+        catch (error){
+            next(error)
     }
 }
 
-const deleteProduct = async (req, res) => {
+const deleteProduct = async (req, res, next) => {
     const id = req.params.id;
     try {
         const product = await Product.findById(id);
         if (!product) {
-            return res.status(400).json({
-                message: "Không tìm thấy sản phẩm",
-            });
+            throw new CustomError.NotFoundError("Không tìm thấy sản phẩm");
         }
         const result = await product.remove();
         if (result) {
@@ -118,25 +112,24 @@ const deleteProduct = async (req, res) => {
                 data: result,
             });
         }
-        return res.status(400).json({
-            message: "Xóa thất bại",
-        });
-        } catch (err) {
-            console.log(err);
-            return res.status(500).json({
-                message: "Lỗi hệ thống",
-        });
+        throw new CustomError.BadRequestError("Xóa thất bại");
+    } catch (error) {
+        next(error)
     }
 }
   
 
-const createReview = async (req, res) => {
+const createReview = async (req, res, next) => {
     const id = req.params.id;
     try{
         const product = await Product.findById(id);
         if(product){
+            const hasReviewed = product.reviews.some(p => p.user.toString() === req.user.id.toString());
+            if(hasReviewed){
+                throw new CustomError.BadRequestError("Đã đánh giá sản phẩm");
+            }
             const review = {
-                user: req.user._id,
+                user: req.user.id,
                 name: req.user.username,
                 rating: req.body.rating,
                 comment: req.body.comment,
@@ -151,13 +144,11 @@ const createReview = async (req, res) => {
                     data: product.reviews[product.reviews.length - 1],
                 })
             }
-            return res.status(400).json({
-                message: "INVALID",
-            })
+            throw new CustomError.BadRequestError("Tạo đánh giá thất bại");
         }
     }
-    catch (err){
-        console.log(err);
+    catch (error){
+        next(error)
     }
 }
 

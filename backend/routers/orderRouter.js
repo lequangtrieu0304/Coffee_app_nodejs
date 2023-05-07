@@ -1,8 +1,8 @@
 import express from 'express';
 const router = express.Router();
 
-import orderController from '../controllers/orderController';
-import { authentication, authenticationCookie, isAdmin } from '../middleware/tokenAccess';
+import orderController from '../controllers/orderController.js';
+import { authenticationCookie, isAdmin } from '../middleware/tokenAccess.js';
 
 router.get('/summary', authenticationCookie, isAdmin, orderController.summaryOrder);
 

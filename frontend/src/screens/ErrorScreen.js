@@ -1,6 +1,6 @@
 const ErrorScreen = {
-    render: () => {
-        return `<div>Page Not Found</div>`
+    render:  () => {
+        `<div>Page not found</div>`
     }
 }
 
